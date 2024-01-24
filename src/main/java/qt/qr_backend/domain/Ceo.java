@@ -20,4 +20,5 @@ public class Ceo {
     private boolean isAdmin;
     private String accountNumber;
     private String email;
+    private String bank;
 }
