@@ -30,6 +30,7 @@ public class Store {
     private String phoneNumber;
     private String address;
     private String businessNumber;
+    private int tableCount;
 
     @Enumerated(EnumType.STRING)
     private Approval approval;
