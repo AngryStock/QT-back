@@ -2,16 +2,20 @@ package qt.qr_backend.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import qt.qr_backend.domain.enums.Approval;
 
 @Entity
 public class Store {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "store_id")
     private Long id;
 
@@ -26,4 +30,7 @@ public class Store {
     private String phoneNumber;
     private String address;
     private String businessNumber;
+
+    @Enumerated(EnumType.STRING)
+    private Approval approval;
 }
