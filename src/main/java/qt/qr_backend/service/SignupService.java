@@ -29,7 +29,7 @@ public class SignupService {
 
         Store store = new Store(ceo, storeRequest.getName(), storeRequest.getPhoneNumber(),
                 storeRequest.getMainAddress(),
-                storeRequest.getSubAddress(), storeRequest.getBusinessNumber(), storeRequest.getTableCount(),
+                storeRequest.getDetailAddress(), storeRequest.getBusinessNumber(), storeRequest.getTableCount(),
                 storeRequest.getApproval());
         storeRepository.save(store);
     }

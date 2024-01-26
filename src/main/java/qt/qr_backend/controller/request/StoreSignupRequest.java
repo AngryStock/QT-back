@@ -17,7 +17,7 @@ public class StoreSignupRequest {
     private String mainAddress;
 
     @NotEmpty
-    private String subAddress;
+    private String detailAddress;
 
     @NotEmpty
     @Size(max = 10)

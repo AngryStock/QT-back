@@ -33,20 +33,21 @@ public class Store {
     @Column(name = "store_phone")
     private String phoneNumber;
     private String mainAddress;
-    private String subAddress;
+    private String detailAddress;
     private String businessNumber;
     private int tableCount;
 
     @Enumerated(EnumType.STRING)
     private Approval approval;
 
-    public Store(Ceo ceo, String name, String phoneNumber, String mainAddress, String subAddress, String businessNumber,
+    public Store(Ceo ceo, String name, String phoneNumber, String mainAddress, String detailAddress,
+                 String businessNumber,
                  int tableCount, Approval approval) {
         this.ceo = ceo;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.mainAddress = mainAddress;
-        this.subAddress = subAddress;
+        this.detailAddress = detailAddress;
         this.businessNumber = businessNumber;
         this.tableCount = tableCount;
         this.approval = approval;
