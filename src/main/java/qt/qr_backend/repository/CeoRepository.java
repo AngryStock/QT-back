@@ -3,14 +3,15 @@ package qt.qr_backend.repository;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import qt.qr_backend.domain.Store;
+import qt.qr_backend.domain.Ceo;
 
 @Repository
 @RequiredArgsConstructor
-public class StoreRepository {
+public class CeoRepository {
+
     private final EntityManager em;
 
-    public void save(Store store) {
-        em.persist(store);
+    public void save(Ceo ceo) {
+        em.persist(ceo);
     }
 }
