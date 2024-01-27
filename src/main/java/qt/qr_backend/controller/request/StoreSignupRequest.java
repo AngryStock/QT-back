@@ -3,6 +3,7 @@ package qt.qr_backend.controller.request;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import qt.qr_backend.annotation.ValidEnum;
 import qt.qr_backend.domain.enums.Approval;
 
 @Data
@@ -25,7 +26,7 @@ public class StoreSignupRequest {
 
     private int tableCount;
 
-    // enum validator 생성 필요
+    @ValidEnum(enumClass = Approval.class)
     private Approval approval;
 }
 
