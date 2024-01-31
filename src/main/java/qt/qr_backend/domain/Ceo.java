@@ -46,4 +46,8 @@ public class Ceo {
     public void encodePassword(PasswordEncoder passwordEncoder, String password) {
         this.password = passwordEncoder.encode(password);
     }
+
+    public boolean matchPassword(PasswordEncoder passwordEncoder, String rawPassword, String encodedPassword) {
+        return passwordEncoder.matches(rawPassword, encodedPassword);
+    }
 }
