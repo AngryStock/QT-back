@@ -28,5 +28,16 @@ public class StoreSignupRequest {
 
     @ValidEnum(enumClass = Approval.class)
     private Approval approval;
+
+    public StoreSignupRequest(String name, String phoneNumber, String mainAddress, String detailAddress,
+                              String businessNumber, int tableCount, Approval approval) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.mainAddress = mainAddress;
+        this.detailAddress = detailAddress;
+        this.businessNumber = businessNumber;
+        this.tableCount = tableCount;
+        this.approval = approval;
+    }
 }
 

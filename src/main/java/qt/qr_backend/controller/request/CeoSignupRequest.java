@@ -29,4 +29,17 @@ public class CeoSignupRequest {
     @NotEmpty
     @Email
     private String email;
+
+    public CeoSignupRequest(String name, String mobileNumber, String loginId, String password, Boolean isAdmin,
+                            String bank,
+                            String accountNumber, String email) {
+        this.name = name;
+        this.mobileNumber = mobileNumber;
+        this.loginId = loginId;
+        this.password = password;
+        this.isAdmin = isAdmin;
+        this.bank = bank;
+        this.accountNumber = accountNumber;
+        this.email = email;
+    }
 }
