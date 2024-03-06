@@ -10,9 +10,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import qt.qr_backend.domain.enums.Approval;
 
 @Entity
+@NoArgsConstructor
+@Getter
 public class Store {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,10 +32,24 @@ public class Store {
 
     @Column(name = "store_phone")
     private String phoneNumber;
-    private String address;
+    private String mainAddress;
+    private String detailAddress;
     private String businessNumber;
     private int tableCount;
 
     @Enumerated(EnumType.STRING)
     private Approval approval;
+
+    public Store(Ceo ceo, String name, String phoneNumber, String mainAddress, String detailAddress,
+                 String businessNumber,
+                 int tableCount, Approval approval) {
+        this.ceo = ceo;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.mainAddress = mainAddress;
+        this.detailAddress = detailAddress;
+        this.businessNumber = businessNumber;
+        this.tableCount = tableCount;
+        this.approval = approval;
+    }
 }
