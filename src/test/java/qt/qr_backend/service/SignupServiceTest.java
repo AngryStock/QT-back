@@ -31,15 +31,14 @@ class SignupServiceTest {
     @DisplayName("회원가입")
     void signup() {
         // given
-        CeoSignupRequest ceoRequest = new CeoSignupRequest("김민정", "01011112222", "test12", "test1234!", false, "농협은행",
-                "1102312992012",
-                "aa@aa.com");
+        CeoSignupRequest ceoRequest = new CeoSignupRequest("김민정", "01011112222", "test12", "test1234!", "농협은행",
+                "1102312992012", "aa@aa.com");
 
         StoreSignupRequest storeRequest = new StoreSignupRequest("탐앤탐스", "0422223423", "대전시 유성구 장대동", "탐앤탐스 장대점",
                 "1111122222", 20, Approval.BEFORE);
 
         Ceo ceo = new Ceo(ceoRequest.getName(), ceoRequest.getMobileNumber(), ceoRequest.getLoginId(),
-                ceoRequest.getIsAdmin(), ceoRequest.getBank(), ceoRequest.getAccountNumber(),
+                null, ceoRequest.getBank(), ceoRequest.getAccountNumber(),
                 ceoRequest.getEmail());
         ceo.encodePassword(passwordEncoder, ceoRequest.getPassword());
         ceoRepository.save(ceo);

@@ -9,6 +9,7 @@ import qt.qr_backend.controller.request.CeoSignupRequest;
 import qt.qr_backend.controller.request.StoreSignupRequest;
 import qt.qr_backend.domain.Ceo;
 import qt.qr_backend.domain.Store;
+import qt.qr_backend.domain.enums.Approval;
 import qt.qr_backend.exception.DuplicateException;
 import qt.qr_backend.repository.CeoRepository;
 import qt.qr_backend.repository.StoreRepository;
@@ -27,7 +28,7 @@ public class SignupService {
         log.info("Ceo 생성 시작");
         validateDuplicateLoginId(ceoRequest.getLoginId());
         Ceo ceo = new Ceo(ceoRequest.getName(), ceoRequest.getMobileNumber(), ceoRequest.getLoginId(),
-                ceoRequest.getIsAdmin(), ceoRequest.getBank(), ceoRequest.getAccountNumber(),
+                "ROLE_USER", ceoRequest.getBank(), ceoRequest.getAccountNumber(),
                 ceoRequest.getEmail());
         ceo.encodePassword(passwordEncoder, ceoRequest.getPassword());
         ceoRepository.save(ceo);
@@ -38,7 +39,7 @@ public class SignupService {
         Store store = new Store(ceo, storeRequest.getName(), storeRequest.getPhoneNumber(),
                 storeRequest.getMainAddress(),
                 storeRequest.getDetailAddress(), storeRequest.getBusinessNumber(), storeRequest.getTableCount(),
-                storeRequest.getApproval());
+                Approval.BEFORE);
         storeRepository.save(store);
         log.info("Store 생성 완료");
     }

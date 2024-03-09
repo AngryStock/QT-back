@@ -3,6 +3,8 @@ package qt.qr_backend.controller.request;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import qt.qr_backend.annotation.ValidEnum;
 import qt.qr_backend.domain.enums.Approval;
 
@@ -26,7 +28,7 @@ public class StoreSignupRequest {
 
     private int tableCount;
 
-    @ValidEnum(enumClass = Approval.class)
+    //@ValidEnum(enumClass = Approval.class)
     private Approval approval;
 
     public StoreSignupRequest(String name, String phoneNumber, String mainAddress, String detailAddress,

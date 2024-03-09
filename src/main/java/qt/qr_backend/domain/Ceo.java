@@ -16,28 +16,28 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Getter
 public class Ceo {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "ceo_id")
-    private Long id;
+    private String id;
 
     @Column(name = "ceo_name")
     private String name;
     private String mobileNumber;
     private String loginId;
     private String password;
-    private boolean isAdmin;
+    private String role;
     private String accountNumber;
     private String email;
     private String bank;
 
 
-    public Ceo(String name, String mobileNumber, String loginId, boolean isAdmin, String bank,
+    public Ceo(String name, String mobileNumber, String loginId, String role, String bank,
                String accountNumber,
                String email) {
         this.name = name;
         this.mobileNumber = mobileNumber;
         this.loginId = loginId;
-        this.isAdmin = isAdmin;
+        this.role = role;
         this.bank = bank;
         this.accountNumber = accountNumber;
         this.email = email;

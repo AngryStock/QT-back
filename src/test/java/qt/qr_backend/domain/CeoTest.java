@@ -25,7 +25,7 @@ class CeoTest {
     void matchPassword() {
         String loginId = "test12";
         // given
-        Ceo ceo1 = new Ceo("홍길동", "01011112222", loginId, false, "농협은행",
+        Ceo ceo1 = new Ceo("홍길동", "01011112222", loginId, "ROLE_ADMIN", "농협은행",
                 "1102312992012",
                 "aa@aa.com");
         ceo1.encodePassword(passwordEncoder, "test1234!");
