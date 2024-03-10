@@ -6,6 +6,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,7 +18,7 @@ import qt.qr_backend.dto.CeoDetails;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
-
+@Slf4j
 @RequiredArgsConstructor
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -29,6 +30,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String loginId = obtainUsername(request);
         String password = obtainPassword(request);
 
+        log.info("아이디 : {} 로그인 시도", loginId);
+
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(loginId, password, null);
 
         return authenticationManager.authenticate(authToken);
@@ -39,6 +42,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         CeoDetails ceoDetails = (CeoDetails) authResult.getPrincipal();
 
         String loginId = ceoDetails.getUsername();
+
+        log.info("아이디 : {} 로그인 성공", loginId);
 
         Collection<? extends GrantedAuthority> authorities = authResult.getAuthorities();
         Iterator<? extends GrantedAuthority> iterator = authorities.iterator();

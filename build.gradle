@@ -35,6 +35,9 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
     implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'
     implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
+
+    //임시 비밀번호를 위한 RandomStringUtils 라이브러리
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.14.0'
 }
 
 tasks.named('test') {

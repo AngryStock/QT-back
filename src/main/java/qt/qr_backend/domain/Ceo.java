@@ -7,13 +7,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Slf4j
 @Entity
 @NoArgsConstructor
-@Getter
+@Getter @Setter
 public class Ceo {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
