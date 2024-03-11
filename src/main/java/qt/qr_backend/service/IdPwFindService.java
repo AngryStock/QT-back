@@ -48,5 +48,8 @@ public class IdPwFindService {
     }
 
 
-
+    // 비밀번호 변경
+    public void changePassword(Ceo ceo, String password) {
+        ceo.setPassword(passwordEncoder.encode(password));
+    }
 }
