@@ -5,17 +5,22 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDateTime;
+
 @Slf4j
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @NoArgsConstructor
 @Getter @Setter
-public class Ceo {
+public class Ceo extends DateEntity{
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "ceo_id")
@@ -31,10 +36,14 @@ public class Ceo {
     private String email;
     private String bank;
 
+    private String businessReportCertificateFileUrl;
+    private String businessRegistrationFileUrl;
+    private String copyOfBankbookFileUrl;
 
     public Ceo(String name, String mobileNumber, String loginId, String role, String bank,
                String accountNumber,
-               String email) {
+               String email, String businessReportCertificateFileUrl,
+               String businessRegistrationFileUrl, String copyOfBankbookFileUrl) {
         this.name = name;
         this.mobileNumber = mobileNumber;
         this.loginId = loginId;
@@ -42,6 +51,9 @@ public class Ceo {
         this.bank = bank;
         this.accountNumber = accountNumber;
         this.email = email;
+        this.businessReportCertificateFileUrl = businessReportCertificateFileUrl;
+        this.businessRegistrationFileUrl = businessRegistrationFileUrl;
+        this.copyOfBankbookFileUrl = copyOfBankbookFileUrl;
     }
 
     public void encodePassword(PasswordEncoder passwordEncoder, String password) {

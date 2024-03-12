@@ -3,9 +3,11 @@ package qt.qr_backend.controller.request;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class CeoSignupRequest {
     @NotEmpty
     private String name;
@@ -30,14 +32,12 @@ public class CeoSignupRequest {
     @Email
     private String email;
 
-    public CeoSignupRequest(String name, String mobileNumber, String loginId, String password,
-                            String bank, String accountNumber, String email) {
-        this.name = name;
-        this.mobileNumber = mobileNumber;
-        this.loginId = loginId;
-        this.password = password;
-        this.bank = bank;
-        this.accountNumber = accountNumber;
-        this.email = email;
-    }
+    @NotEmpty
+    private String businessReportCertificateFileUrl;
+
+    @NotEmpty
+    private String businessRegistrationFileUrl;
+
+    @NotEmpty
+    private String copyOfBankbookFileUrl;
 }

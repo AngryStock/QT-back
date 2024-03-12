@@ -13,7 +13,10 @@ import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.format.annotation.DateTimeFormat;
 import qt.qr_backend.domain.enums.Approval;
+
+import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
@@ -40,6 +43,9 @@ public class Store {
 
     @Enumerated(EnumType.STRING)
     private Approval approval;
+
+    @DateTimeFormat(pattern = "yyyy-mm-dd/HH:mm:ss")
+    private LocalDateTime approvalAt; // 승인된 날짜
 
     public Store(Ceo ceo, String name, String phoneNumber, String mainAddress, String detailAddress,
                  String businessNumber,

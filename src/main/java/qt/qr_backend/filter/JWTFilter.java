@@ -26,7 +26,8 @@ public class JWTFilter extends OncePerRequestFilter {
 
         String requestURI = request.getRequestURI();
         if (requestURI.startsWith("/signup") || requestURI.startsWith("/login")
-                || requestURI.startsWith("/findId") || requestURI.startsWith("/findPassword")) {
+                || requestURI.startsWith("/findId") || requestURI.startsWith("/findPassword")
+                || requestURI.startsWith("/ceoImages")) {
             filterChain.doFilter(request, response);
             return;
         }

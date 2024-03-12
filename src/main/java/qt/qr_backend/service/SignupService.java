@@ -29,7 +29,8 @@ public class SignupService {
         validateDuplicateLoginId(ceoRequest.getLoginId());
         Ceo ceo = new Ceo(ceoRequest.getName(), ceoRequest.getMobileNumber(), ceoRequest.getLoginId(),
                 "ROLE_USER", ceoRequest.getBank(), ceoRequest.getAccountNumber(),
-                ceoRequest.getEmail());
+                ceoRequest.getEmail(), ceoRequest.getBusinessReportCertificateFileUrl(),
+                ceoRequest.getBusinessRegistrationFileUrl(), ceoRequest.getCopyOfBankbookFileUrl());
         ceo.encodePassword(passwordEncoder, ceoRequest.getPassword());
         ceoRepository.save(ceo);
         log.info("Ceo 생성 완료");
@@ -38,7 +39,7 @@ public class SignupService {
         validateDuplicateBusinessNumber(storeRequest.getBusinessNumber());
         Store store = new Store(ceo, storeRequest.getName(), storeRequest.getPhoneNumber(),
                 storeRequest.getMainAddress(),
-                storeRequest.getDetailAddress(), storeRequest.getBusinessNumber(), storeRequest.getTableCount(),
+                storeRequest.getDetailAddress(), storeRequest.getBusinessNumber(), 0,
                 Approval.BEFORE);
         storeRepository.save(store);
         log.info("Store 생성 완료");
