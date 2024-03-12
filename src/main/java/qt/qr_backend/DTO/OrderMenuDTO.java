@@ -26,6 +26,11 @@ public class OrderMenuDTO {
     private int orderPrice;
     private int count;
 
+    public OrderMenuDTO setOrderDTOMap(OrderDTO orderDTO,OrderMenuDTO orderMenuDTO) {
+        orderMenuDTO.setOrderDTO(orderDTO);
+        return orderMenuDTO;
+    }
+
     public OrderMenu toOrderMenu(){
         return OrderMenu.builder()
                 .order(OrderDTO.fromOrderDTOtoOrder(orderDTO))
@@ -57,6 +62,11 @@ public class OrderMenuDTO {
     public static List<OrderMenuDTO> listFromOrderMenutoOrderMenuDTO(List<OrderMenu> list){
         return list.stream()
                 .map(OrderMenuDTO::fromOrderMenutoOrderMenuDTO)
+                .toList();
+    }
+    public static List<OrderMenu> listFromOrderMenuDTOtoOrderMenu(List<OrderMenuDTO> list){
+        return list.stream()
+                .map(OrderMenuDTO::fromOrderMenuDTOtoOrderMenu)
                 .toList();
     }
 

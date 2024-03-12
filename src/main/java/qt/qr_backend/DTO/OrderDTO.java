@@ -26,6 +26,7 @@ public class OrderDTO {
     private LocalDateTime orderDate;
     private String status;
 
+
     public Order toOrder(){
         return Order.builder()
                 .store(StoreDTO.fromStoreDTOtoStore(storeDTO))
@@ -55,6 +56,10 @@ public class OrderDTO {
         return list.stream()
                 .map(OrderDTO::fromOrdertoOrderDTO)
                 .toList();
+    }
+
+    public void changeStatus(String status){
+        this.status = status;
     }
 
 }

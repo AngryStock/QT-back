@@ -16,7 +16,7 @@ import javax.annotation.processing.Generated;
 @Builder
 @Table(name = "orders")
 public class Order {
-    @Id @GeneratedValue(strategy = GenerationType.UUID)
+    @Id
     @Column(name = "order_id")
     private String id;
 

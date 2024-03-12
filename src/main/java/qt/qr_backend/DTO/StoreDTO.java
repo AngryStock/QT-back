@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import qt.qr_backend.domain.Ceo;
 import qt.qr_backend.domain.Store;
 import qt.qr_backend.domain.enums.Approval;
@@ -13,6 +14,7 @@ import qt.qr_backend.domain.enums.Approval;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Slf4j
 @Builder
 public class StoreDTO {
 

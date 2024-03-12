@@ -54,4 +54,5 @@ public class Ceo {
     public boolean matchPassword(PasswordEncoder passwordEncoder, String rawPassword, String encodedPassword) {
         return passwordEncoder.matches(rawPassword, encodedPassword);
     }
+
 }

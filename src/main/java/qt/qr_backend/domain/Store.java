@@ -27,7 +27,7 @@ public class Store {
     @Column(name = "store_id")
     private String id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ceo_id")
     private Ceo ceo;
 

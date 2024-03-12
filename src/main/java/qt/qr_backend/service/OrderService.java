@@ -2,6 +2,7 @@ package qt.qr_backend.service;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import qt.qr_backend.DTO.OrderDTO;
 import qt.qr_backend.domain.Order;
@@ -12,12 +13,18 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class OrderService {
 
     private final OrderRepository orderRepository;
 
     public OrderDTO saveOrder(OrderDTO orderDTO){
         Order order = orderRepository.save(orderDTO.toOrder());
+        return OrderDTO.fromOrdertoOrderDTO(order);
+    }
+    public OrderDTO makeOrderFromOrderId(OrderDTO orderDTO){
+        orderRepository.save(OrderDTO.fromOrderDTOtoOrder(orderDTO));
+        Order order = orderRepository.findNoProxyOrderById(orderDTO.getId());
         return OrderDTO.fromOrdertoOrderDTO(order);
     }
 
