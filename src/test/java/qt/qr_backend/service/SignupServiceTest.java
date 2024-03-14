@@ -31,23 +31,23 @@ class SignupServiceTest {
     @DisplayName("회원가입")
     void signup() {
         // given
-        CeoSignupRequest ceoRequest = new CeoSignupRequest("김민정", "01011112222", "test12", "test1234!", false, "농협은행",
-                "1102312992012",
-                "aa@aa.com");
+        CeoSignupRequest ceoRequest = new CeoSignupRequest("김민정", "01011112222", "test12", "test1234!", "농협은행",
+                "1102312992012", "aa@aa.com", null, null, null);
 
         StoreSignupRequest storeRequest = new StoreSignupRequest("탐앤탐스", "0422223423", "대전시 유성구 장대동", "탐앤탐스 장대점",
-                "1111122222", 20, Approval.BEFORE);
+                "1111122222");
 
         Ceo ceo = new Ceo(ceoRequest.getName(), ceoRequest.getMobileNumber(), ceoRequest.getLoginId(),
-                ceoRequest.getIsAdmin(), ceoRequest.getBank(), ceoRequest.getAccountNumber(),
-                ceoRequest.getEmail());
+                null, ceoRequest.getBank(), ceoRequest.getAccountNumber(),
+                ceoRequest.getEmail(), ceoRequest.getBusinessReportCertificateFileUrl(), ceoRequest.getBusinessRegistrationFileUrl(),
+                ceoRequest.getCopyOfBankbookFileUrl());
         ceo.encodePassword(passwordEncoder, ceoRequest.getPassword());
         ceoRepository.save(ceo);
 
         Store store = new Store(ceo, storeRequest.getName(), storeRequest.getPhoneNumber(),
                 storeRequest.getMainAddress(),
-                storeRequest.getDetailAddress(), storeRequest.getBusinessNumber(), storeRequest.getTableCount(),
-                storeRequest.getApproval());
+                storeRequest.getDetailAddress(), storeRequest.getBusinessNumber(), 0,
+                Approval.BEFORE);
         storeRepository.save(store);
 
         // when

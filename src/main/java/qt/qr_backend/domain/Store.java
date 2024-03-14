@@ -10,18 +10,26 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import lombok.EqualsAndHashCode;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
+import org.springframework.format.annotation.DateTimeFormat;
 import qt.qr_backend.domain.enums.Approval;
 
+import java.time.LocalDateTime;
+
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
+@Getter @Setter
 @Builder
-public class Store {
+public class Store extends DateEntity{
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "store_id")

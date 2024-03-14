@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,13 +13,18 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDateTime;
+
 @Slf4j
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @NoArgsConstructor
 @Getter
 @AllArgsConstructor
 @Builder
-public class Ceo {
+
+public class Ceo extends DateEntity{
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "ceo_id")
@@ -29,22 +35,29 @@ public class Ceo {
     private String mobileNumber;
     private String loginId;
     private String password;
-    private boolean isAdmin;
+    private String role;
     private String accountNumber;
     private String email;
     private String bank;
 
+    private String businessReportCertificateFileUrl;
+    private String businessRegistrationFileUrl;
+    private String copyOfBankbookFileUrl;
 
-    public Ceo(String name, String mobileNumber, String loginId, boolean isAdmin, String bank,
+    public Ceo(String name, String mobileNumber, String loginId, String role, String bank,
                String accountNumber,
-               String email) {
+               String email, String businessReportCertificateFileUrl,
+               String businessRegistrationFileUrl, String copyOfBankbookFileUrl) {
         this.name = name;
         this.mobileNumber = mobileNumber;
         this.loginId = loginId;
-        this.isAdmin = isAdmin;
+        this.role = role;
         this.bank = bank;
         this.accountNumber = accountNumber;
         this.email = email;
+        this.businessReportCertificateFileUrl = businessReportCertificateFileUrl;
+        this.businessRegistrationFileUrl = businessRegistrationFileUrl;
+        this.copyOfBankbookFileUrl = copyOfBankbookFileUrl;
     }
 
     public void encodePassword(PasswordEncoder passwordEncoder, String password) {

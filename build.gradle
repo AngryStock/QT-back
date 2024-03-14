@@ -32,6 +32,13 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+    //jwt 0.12.3
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
+
+    //임시 비밀번호를 위한 RandomStringUtils 라이브러리
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.14.0'
 
     //mvc 타임리프 및 채팅 기능 테스트용 의존성
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'

@@ -1,6 +1,7 @@
 package qt.qr_backend.domain;
 
 import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,6 +18,7 @@ import javax.annotation.processing.Generated;
 @Table(name = "orders")
 public class Order {
     @Id
+
     @Column(name = "order_id")
     private String id;
 

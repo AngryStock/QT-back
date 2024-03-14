@@ -1,6 +1,7 @@
 package qt.qr_backend.domain;
 
 import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,6 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MenuOption {
+
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "menu_option_id")
     private String id;

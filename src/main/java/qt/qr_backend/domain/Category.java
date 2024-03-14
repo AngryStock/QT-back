@@ -1,6 +1,7 @@
 package qt.qr_backend.domain;
 
 import jakarta.persistence.*;
+
 import lombok.*;
 
 @Getter
@@ -9,6 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Category {
+
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "category_id")
     private String id;
