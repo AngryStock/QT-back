@@ -5,9 +5,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import qt.qr_backend.DTO.CeoDetails;
+import qt.qr_backend.DTO.CeoJwtDTO;
 import qt.qr_backend.domain.Ceo;
-import qt.qr_backend.dto.CeoDTO;
-import qt.qr_backend.dto.CeoDetails;
 import qt.qr_backend.repository.CeoRepository;
 
 import java.util.Optional;
@@ -22,11 +22,11 @@ public class CustomCeoDetailService implements UserDetailsService {
         Optional<Ceo> ceoData = ceoRepository.findByLoginId(loginId);
         Ceo ceo = ceoData.orElse(null);
         if (ceo != null) {
-            CeoDTO ceoDTO = new CeoDTO();
-            ceoDTO.setLoginId(ceo.getLoginId());
-            ceoDTO.setPassword(ceo.getPassword());
-            ceoDTO.setRole(ceo.getRole());
-            return new CeoDetails(ceoDTO);
+            CeoJwtDTO ceoJwtDTO = new CeoJwtDTO();
+            ceoJwtDTO.setLoginId(ceo.getLoginId());
+            ceoJwtDTO.setPassword(ceo.getPassword());
+            ceoJwtDTO.setRole(ceo.getRole());
+            return new CeoDetails(ceoJwtDTO);
         }
 
         return null;

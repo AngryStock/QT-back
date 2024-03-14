@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import qt.qr_backend.domain.Ceo;
-import qt.qr_backend.dto.CeoDTO;
 import qt.qr_backend.repository.CeoRepository;
 
 import java.util.Optional;

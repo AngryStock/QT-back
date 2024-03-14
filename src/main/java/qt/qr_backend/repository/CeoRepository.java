@@ -7,8 +7,8 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import qt.qr_backend.domain.Ceo;
-import qt.qr_backend.dto.IdFindDTO;
-import qt.qr_backend.dto.PwFindDTO;
+import qt.qr_backend.DTO.IdFindDTO;
+import qt.qr_backend.DTO.PwFindDTO;
 
 @Repository
 @RequiredArgsConstructor

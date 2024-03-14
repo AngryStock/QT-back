@@ -1,4 +1,4 @@
-package qt.qr_backend.dto;
+package qt.qr_backend.DTO;
 
 import lombok.Data;
 

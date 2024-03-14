@@ -1,16 +1,14 @@
-package qt.qr_backend.dto;
+package qt.qr_backend.DTO;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import qt.qr_backend.domain.Ceo;
-
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class CeoDetails implements UserDetails {
-    private final CeoDTO ceo;
+    private final CeoJwtDTO ceo;
 
-    public CeoDetails(CeoDTO ceo) {
+    public CeoDetails(CeoJwtDTO ceo) {
         this.ceo = ceo;
     }
 

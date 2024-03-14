@@ -1,10 +1,6 @@
 package qt.qr_backend.DTO;
 
-import jakarta.persistence.Column;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import qt.qr_backend.domain.Ceo;
 
 
@@ -18,7 +14,7 @@ public class CeoDTO {
     private String mobileNumber;
     private String loginId;
     private String password;
-    private boolean isAdmin;
+    private String role;
     private String accountNumber;
     private String email;
     private String bank;
@@ -30,7 +26,7 @@ public class CeoDTO {
                 .mobileNumber(ceo.mobileNumber)
                 .loginId(ceo.loginId)
                 .password(ceo.password)
-                .isAdmin(ceo.isAdmin)
+                .role(ceo.role)
                 .accountNumber(ceo.accountNumber)
                 .email(ceo.email)
                 .bank(ceo.bank)
@@ -44,7 +40,7 @@ public class CeoDTO {
                 .mobileNumber(ceo.getMobileNumber())
                 .loginId(ceo.getLoginId())
                 .password(ceo.getPassword())
-                .isAdmin(ceo.isAdmin())
+                .role(ceo.getRole())
                 .accountNumber(ceo.getAccountNumber())
                 .email(ceo.getEmail())
                 .bank(ceo.getBank())
