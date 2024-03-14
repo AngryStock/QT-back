@@ -6,8 +6,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import qt.qr_backend.domain.Ceo;
-import qt.qr_backend.dto.IdFindDTO;
-import qt.qr_backend.dto.PwFindDTO;
+import qt.qr_backend.DTO.IdFindDTO;
+import qt.qr_backend.DTO.PwFindDTO;
 import qt.qr_backend.repository.CeoRepository;
 
 import java.util.Optional;

@@ -1,8 +1,6 @@
-package qt.qr_backend.dto;
+package qt.qr_backend.DTO;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 
 @Data
 public class IdFindDTO {
