@@ -17,7 +17,7 @@ public class CeoRepository {
         em.persist(ceo);
     }
 
-    public Ceo findById(Long id) {
+    public Ceo findById(String id) {
         return em.find(Ceo.class, id);
     }
 

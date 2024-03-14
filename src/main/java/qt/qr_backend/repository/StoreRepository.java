@@ -15,7 +15,7 @@ public class StoreRepository {
         em.persist(store);
     }
 
-    public Store findById(long id) {
+    public Store findById(String id) {
         return em.find(Store.class, id);
     }
 

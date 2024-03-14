@@ -23,7 +23,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/signup", "login").permitAll()
+                        .requestMatchers("/signup", "login","/**","/ws-stomp/websocket","/pub/**","/sub/**").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults());
         return http.build();
