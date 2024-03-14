@@ -44,6 +44,7 @@ public class IdPwFindService {
 
         //임시 비밀번호로 비밀번호 재설정 후 DB 저장
         ceo.setPassword(passwordEncoder.encode(newPwd));
+
         return newPwd;
     }
 
