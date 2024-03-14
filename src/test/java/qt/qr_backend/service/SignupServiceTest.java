@@ -35,7 +35,7 @@ class SignupServiceTest {
                 "1102312992012", "aa@aa.com", null, null, null);
 
         StoreSignupRequest storeRequest = new StoreSignupRequest("탐앤탐스", "0422223423", "대전시 유성구 장대동", "탐앤탐스 장대점",
-                "1111122222", Approval.BEFORE);
+                "1111122222");
 
         Ceo ceo = new Ceo(ceoRequest.getName(), ceoRequest.getMobileNumber(), ceoRequest.getLoginId(),
                 null, ceoRequest.getBank(), ceoRequest.getAccountNumber(),
@@ -47,7 +47,7 @@ class SignupServiceTest {
         Store store = new Store(ceo, storeRequest.getName(), storeRequest.getPhoneNumber(),
                 storeRequest.getMainAddress(),
                 storeRequest.getDetailAddress(), storeRequest.getBusinessNumber(), 0,
-                storeRequest.getApproval());
+                Approval.BEFORE);
         storeRepository.save(store);
 
         // when

@@ -22,6 +22,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import qt.qr_backend.filter.JWTFilter;
 import qt.qr_backend.filter.JWTUtil;
 import qt.qr_backend.filter.LoginFilter;
+import qt.qr_backend.service.RefreshService;
 
 import java.util.Collections;
 
@@ -32,6 +33,7 @@ public class SecurityConfig {
 
     private final AuthenticationConfiguration authenticationConfiguration;
     private final JWTUtil jwtUtil;
+    private final RefreshService refreshService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -95,13 +97,14 @@ public class SecurityConfig {
         //경로별 인가 작업
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/login", "/", "/signup", "/findId", "/findPassword", "/ceoImages").permitAll()
+                        .requestMatchers("/login", "/", "/signup", "/findId",
+                                "/findPassword", "/ceoImages", "/reissue").permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .anyRequest().authenticated());
 
         //필터 추가
         http
-                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration),jwtUtil), UsernamePasswordAuthenticationFilter.class)
+                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration),jwtUtil, refreshService), UsernamePasswordAuthenticationFilter.class)
                 .addFilterAfter(new JWTFilter(jwtUtil), LoginFilter.class);
 
 

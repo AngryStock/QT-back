@@ -18,8 +18,8 @@ public abstract class DateEntity {
     @DateTimeFormat(pattern = "yyyy-mm-dd/HH:mm:ss")
     private LocalDateTime createdAt;
 
-//    @LastModifiedDate
-//    @DateTimeFormat(pattern = "yyyy-mm-dd/HH:mm:ss")
-//    private LocalDateTime modifiedDate;
+    // 승인 날짜
+    @DateTimeFormat(pattern = "yyyy-mm-dd/HH:mm:ss")
+    private LocalDateTime approvalAt;
 
 }

@@ -10,18 +10,21 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 import qt.qr_backend.domain.enums.Approval;
 
 import java.time.LocalDateTime;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @NoArgsConstructor
-@Getter
-public class Store {
+@Getter @Setter
+public class Store extends DateEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "store_id")
@@ -43,9 +46,6 @@ public class Store {
 
     @Enumerated(EnumType.STRING)
     private Approval approval;
-
-    @DateTimeFormat(pattern = "yyyy-mm-dd/HH:mm:ss")
-    private LocalDateTime approvalAt; // 승인된 날짜
 
     public Store(Ceo ceo, String name, String phoneNumber, String mainAddress, String detailAddress,
                  String businessNumber,
