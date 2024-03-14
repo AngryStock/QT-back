@@ -11,8 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
-import qt.qr_backend.dto.CeoDTO;
-import qt.qr_backend.dto.CeoDetails;
+import qt.qr_backend.DTO.CeoDetails;
+import qt.qr_backend.DTO.CeoJwtDTO;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -83,12 +83,12 @@ public class JWTFilter extends OncePerRequestFilter {
         String role = jwtUtil.getRole(accessToken);
 
         //ceoDTO를 생성하여 값 set
-        CeoDTO ceoDTO = new CeoDTO();
-        ceoDTO.setLoginId(loginId);
-        ceoDTO.setRole(role);
+        CeoJwtDTO ceoJwtDTO = new CeoJwtDTO();
+        ceoJwtDTO.setLoginId(loginId);
+        ceoJwtDTO.setRole(role);
 
         //CeoDetails에 ceo 정보 객체 담기
-        CeoDetails ceoDetails = new CeoDetails(ceoDTO);
+        CeoDetails ceoDetails = new CeoDetails(ceoJwtDTO);
 
         //스프링 시큐리티 인증 토큰 생성
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(ceoDetails, null, ceoDetails.getAuthorities());

@@ -1,15 +1,11 @@
 package qt.qr_backend.DTO;
 
-
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import qt.qr_backend.domain.Category;
-
 import java.util.List;
-import java.util.Optional;
 
 @Data
 @Builder
