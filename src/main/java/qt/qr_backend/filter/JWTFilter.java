@@ -37,11 +37,20 @@ public class JWTFilter extends OncePerRequestFilter {
         //쿠키들을 불러온 뒤 access token이 담긴 쿠키를 찾음.
         String accessToken = null;
         Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-            log.info("쿠키 이름 = {}", cookie.getName());
-            if(cookie.getName().equals("access")) {
-                accessToken = cookie.getValue();
+
+        // cookies 배열이 null이 아닌 경우에만 반복문 실행
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                log.info("쿠키 이름 = {}", cookie.getName());
+                if (cookie.getName().equals("access")) {
+                    accessToken = cookie.getValue();
+                    break;
+                }
             }
+        } else {
+            log.info("쿠키가 없습니다.");
+            filterChain.doFilter(request, response);
+            return;
         }
 
         if(accessToken == null) {
