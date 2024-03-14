@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Websocket ChatRoom</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/dist/css/bootstrap.min.css">
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+        body{
+            padding: 0;
+            margin: 0 auto;
+        }
+        .input-group {
+            z-index: 1;
+            bottom: 0;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<div class="container" id="app" v-cloak>
+    <div class="input-group">
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="button" @click="sendMessage">주문 하기</button>
+        </div>
+
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="button" @click="disconnectRoom">퇴장</button>
+        </div>
+    </div>
+</div>
+
+<script src="/webjars/vue/2.5.16/dist/vue.min.js"></script>
+<script src="/webjars/axios/0.17.1/dist/axios.min.js"></script>
+<script src="/webjars/sockjs-client/1.1.2/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/2.3.3-1/stomp.min.js"></script>
+<script>
+    var sock = new SockJS("/ws-stomp");
+    var ws = Stomp.over(sock);
+    var reconnect = 0;
+    var json = [{
+        "OrderDTO":{},
+        "menuDTO":{
+            "id": "03067dae-1f17-47c3-a7e2-325c82e7ccac",
+            "category": {
+                "id": "56b6c956-43aa-4cc7-8243-0af15b50314c",
+                "store": {
+                    "id": "9d85fa11-e525-4da2-836c-b6e612ebe436",
+                    "ceo": {
+                        "id": "19166152-c336-4650-b8cb-8d8a69517476",
+                        "name": "appleMango",
+                        "mobileNumber": "010-1234-5678",
+                        "loginId": "appleLogin",
+                        "password": "applePassword",
+                        "accountNumber": "123-45-678910",
+                        "email": "apple@gmail.com",
+                        "bank": "seoul",
+                        "admin": true
+                    },
+                    "name": "appleMangoDel",
+                    "phoneNumber": "010-1234-5678",
+                    "mainAddress": "mangoaddress",
+                    "detailAddress": "appleaddress",
+                    "businessNumber": "102",
+                    "tableCount": 10,
+                    "approval": "APPROVE"
+                },
+                "name": "Category pineAppleMango"
+            },
+            "name": "appleMangoMenuName",
+            "price": 8000,
+            "description": "delicious applen and mango drink"
+        },
+        "orderPrice": 16000,
+        "count": 2
+    },{
+        "OrderDTO":{},
+        "menuDTO":{
+            "id": "6213e660-5f2b-402b-b909-9bd4dad0afdf",
+            "category": {
+                "id": "56b6c956-43aa-4cc7-8243-0af15b50314c",
+                "store": {
+                    "id": "9d85fa11-e525-4da2-836c-b6e612ebe436",
+                    "ceo": {
+                        "id": "19166152-c336-4650-b8cb-8d8a69517476",
+                        "name": "appleMango",
+                        "mobileNumber": "010-1234-5678",
+                        "loginId": "appleLogin",
+                        "password": "applePassword",
+                        "accountNumber": "123-45-678910",
+                        "email": "apple@gmail.com",
+                        "bank": "seoul",
+                        "admin": true
+                    },
+                    "name": "appleMangoDel",
+                    "phoneNumber": "010-1234-5678",
+                    "mainAddress": "mangoaddress",
+                    "detailAddress": "appleaddress",
+                    "businessNumber": "102",
+                    "tableCount": 10,
+                    "approval": "APPROVE"
+                },
+                "name": "Category pineAppleMango"
+            },
+            "name": "DoubleMangoMenuName",
+            "price": 16000,
+            "description": "delicious mango and mango drink"
+        },
+        "orderPrice": 48000,
+        "count": 3
+    }
+
+    ]
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            orderId: "ed96070a-9b45-41d7-8f57-fbf67e585777",
+        },
+        methods: {
+            sendMessage: function() {
+                //고객 측에서 random uuid 하나를 생성하여 send
+                var uuid = "ed96070a-9b45-41d7-8f57-fbf67e585777"
+                ws.send("/pub/order/message/"+uuid, {},
+                    JSON.stringify(json));
+            },
+            recvMessage: function(recv) {
+                console.log(recv)
+            },
+            disconnectRoom: function () {
+                ws.disconnect()
+            }
+        }
+    });
+
+    function connect() {
+        ws.connect({}, function(frame) {
+            ws.subscribe("/sub/order/OXmessage/OrderId/"+vm.$data.orderId, function(message) {
+                var recv = JSON.parse(message.body);
+                vm.recvMessage(recv);
+            });
+        }, function(error) {
+            if(reconnect++ <= 5) {
+                setTimeout(function() {
+                    console.log("connection reconnect");
+                    sock = new SockJS("/ws-stomp");
+                    ws = Stomp.over(sock);
+                    connect();
+                },10*1000);
+            }
+        });
+    }
+    connect();
+</script>
+</body>
+</html>
