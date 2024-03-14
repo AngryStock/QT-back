@@ -6,10 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -22,7 +19,6 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 @Builder
-
 public class Ceo extends DateEntity{
 
     @Id
@@ -34,6 +30,7 @@ public class Ceo extends DateEntity{
     private String name;
     private String mobileNumber;
     private String loginId;
+    @Setter
     private String password;
     private String role;
     private String accountNumber;
