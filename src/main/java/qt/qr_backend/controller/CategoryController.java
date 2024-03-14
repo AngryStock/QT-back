@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import qt.qr_backend.DTO.CategoryDTO;
+import qt.qr_backend.DTO.MenuDTO;
 import qt.qr_backend.controller.response.CategoryResponse;
 import qt.qr_backend.service.CategoryService;
 
@@ -24,6 +25,11 @@ public class CategoryController {
     public ResponseEntity<CategoryDTO> categorySave(@RequestBody CategoryDTO categoryDTO){
         log.info("start save category");
         return ResponseEntity.ok(categoryService.saveCategory(categoryDTO));
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<CategoryDTO> categoryUpdate(@RequestBody CategoryDTO categoryDTO){
+        return ResponseEntity.ok(categoryService.updateCategory(categoryDTO));
     }
     @GetMapping("/delete/{categoryId}")
     public CategoryResponse categoryDelete(@PathVariable String categoryId){

@@ -23,4 +23,13 @@ public class OrderTestController {
         return "ceo";
     }
 
+    @GetMapping("/orderTest/customerTwo")
+    public String customerTwo(Model model){
+        return "customerTwo";
+    }
+    @GetMapping("/orderTest/ceoTwo")
+    public String ceoTwo(Model model){
+        return "ceoTwo";
+    }
+
 }

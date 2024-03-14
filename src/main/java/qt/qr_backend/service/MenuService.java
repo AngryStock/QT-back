@@ -4,7 +4,9 @@ package qt.qr_backend.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import qt.qr_backend.DTO.MenuDTO;
+import qt.qr_backend.DTO.OrderMenuDTO;
 import qt.qr_backend.domain.Menu;
+import qt.qr_backend.domain.OrderMenu;
 import qt.qr_backend.repository.MenuRepository;
 
 import java.util.List;
@@ -18,6 +20,11 @@ public class MenuService {
 
     public MenuDTO saveMenu(MenuDTO menuDTO){
         Menu menu = menuRepository.save(menuDTO.toMenu());
+        return MenuDTO.fromMenutoMenuDTO(menu);
+    }
+    public MenuDTO updateMenu(MenuDTO menuDTO){
+        menuRepository.save(MenuDTO.fromMenuDTOtoMenu(menuDTO));
+        Menu menu = menuRepository.findNoProxyMenuById(menuDTO.getId());
         return MenuDTO.fromMenutoMenuDTO(menu);
     }
 

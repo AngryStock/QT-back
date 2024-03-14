@@ -26,6 +26,11 @@ public class OrderMenuService {
         OrderMenu orderMenu = orderMenuRepository.save(orderMenuDTO.toOrderMenu());
         return OrderMenuDTO.fromOrderMenutoOrderMenuDTO(orderMenu);
     }
+    public OrderMenuDTO updateOrderMenu(OrderMenuDTO orderMenuDTO){
+        orderMenuRepository.save(OrderMenuDTO.fromOrderMenuDTOtoOrderMenu(orderMenuDTO));
+        OrderMenu orderMenu = orderMenuRepository.findNoProxyOrderMenuById(orderMenuDTO.getId());
+        return OrderMenuDTO.fromOrderMenutoOrderMenuDTO(orderMenu);
+    }
 
     public List<OrderMenuDTO> saveAllOrderMenu(List<OrderMenuDTO> orderMenuDTOList, OrderDTO orderDTO){
         Order savedOrder = orderRepository.save(OrderDTO.fromOrderDTOtoOrder(orderDTO));

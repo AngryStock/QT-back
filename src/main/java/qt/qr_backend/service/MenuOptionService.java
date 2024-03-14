@@ -3,7 +3,9 @@ package qt.qr_backend.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import qt.qr_backend.DTO.MenuDTO;
 import qt.qr_backend.DTO.MenuOptionDTO;
+import qt.qr_backend.domain.Menu;
 import qt.qr_backend.domain.MenuOption;
 import qt.qr_backend.repository.MenuOptionRepository;
 
@@ -18,6 +20,12 @@ public class MenuOptionService {
 
     public MenuOptionDTO saveMenuOption(MenuOptionDTO menuOptionDTO){
         MenuOption menuOption = menuOptionRepository.save(menuOptionDTO.toMenuOption());
+        return MenuOptionDTO.fromMenuOptiontoMenuOptionDTO(menuOption);
+    }
+
+    public MenuOptionDTO updateMenuOption(MenuOptionDTO menuOptionDTO){
+        menuOptionRepository.save(MenuOptionDTO.fromMenuOptionDTOtoMenuOption(menuOptionDTO));
+        MenuOption menuOption = menuOptionRepository.findNoProxyMenuOptionById(menuOptionDTO.getId());
         return MenuOptionDTO.fromMenuOptiontoMenuOptionDTO(menuOption);
     }
 

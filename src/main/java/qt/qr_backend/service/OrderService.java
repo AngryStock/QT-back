@@ -22,7 +22,8 @@ public class OrderService {
         Order order = orderRepository.save(orderDTO.toOrder());
         return OrderDTO.fromOrdertoOrderDTO(order);
     }
-    public OrderDTO makeOrderFromOrderId(OrderDTO orderDTO){
+
+    public OrderDTO updateOrder(OrderDTO orderDTO){
         orderRepository.save(OrderDTO.fromOrderDTOtoOrder(orderDTO));
         Order order = orderRepository.findNoProxyOrderById(orderDTO.getId());
         return OrderDTO.fromOrdertoOrderDTO(order);

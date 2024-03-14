@@ -39,6 +39,14 @@ public class MenuOptionDTO {
                 .price(menuOption.getPrice())
                 .build();
     }
+    public static MenuOption fromMenuOptionDTOtoMenuOption(MenuOptionDTO menuOptionDTO){
+        return MenuOption.builder()
+                .id(menuOptionDTO.id)
+                .menu(MenuDTO.fromMenuDTOtoMenu(menuOptionDTO.menu))
+                .name(menuOptionDTO.name)
+                .price(menuOptionDTO.price)
+                .build();
+    }
     public static List<MenuOptionDTO> listFromMenuOptionToMenuOptionDTO(List<MenuOption> list){
         return list.stream()
                 .map(MenuOptionDTO::fromMenuOptiontoMenuOptionDTO)

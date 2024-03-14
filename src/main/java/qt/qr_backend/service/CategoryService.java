@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import qt.qr_backend.DTO.CategoryDTO;
 import qt.qr_backend.DTO.MenuDTO;
+import qt.qr_backend.DTO.MenuOptionDTO;
 import qt.qr_backend.domain.Category;
 import qt.qr_backend.domain.Menu;
+import qt.qr_backend.domain.MenuOption;
 import qt.qr_backend.repository.CategoryRepository;
 
 import java.util.List;
@@ -21,6 +23,12 @@ public class CategoryService {
 
     public CategoryDTO saveCategory(CategoryDTO categoryDTO){
         Category category = categoryRepository.save(categoryDTO.toCategory());
+        return CategoryDTO.fromCategorytoCategoryDTO(category);
+    }
+
+    public CategoryDTO updateCategory(CategoryDTO categoryDTO){
+        categoryRepository.save(CategoryDTO.fromCategoryDTOtoCategory(categoryDTO));
+        Category category = categoryRepository.findNoProxyCategoryById(categoryDTO.getId());
         return CategoryDTO.fromCategorytoCategoryDTO(category);
     }
 

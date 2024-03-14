@@ -3,6 +3,7 @@ package qt.qr_backend.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -33,6 +34,10 @@ public class OrderController {
         log.info("start save order");
         return ResponseEntity.ok(orderService.saveOrder(orderDTO));
     }
+    @PostMapping("/order/update")
+    public ResponseEntity<OrderDTO> orderUpdate(@RequestBody OrderDTO orderDTO){
+        return ResponseEntity.ok(orderService.updateOrder(orderDTO));
+    }
 
     @MessageMapping("/order/message/{orderId}")//고객이 사장에게 주문 정보 보내기/pub/order/message
     //이때 고객쪽에서 orderId를 보내주면 이걸 기반으로 Order를 만들어주자
@@ -48,7 +53,7 @@ public class OrderController {
     @MessageMapping("/order/orderOXmessage/{oxMessage}")//사장이 고객에게 주문 상태 보내기/pub/order/orderOXmessage
     public void orderOXMessageToCustomer(List<OrderMenuDTO> orderMenuDTOList,@DestinationVariable String oxMessage){
         orderMenuDTOList.get(0).getOrderDTO().changeStatus(oxMessage);
-        OrderDTO orderDTO = orderService.makeOrderFromOrderId(orderMenuDTOList.get(0).getOrderDTO());
+        OrderDTO orderDTO = orderService.updateOrder(orderMenuDTOList.get(0).getOrderDTO());
         messagingTemplate.convertAndSend("/sub/order/OXmessage/OrderId/"+orderDTO.getId(),orderDTO);
         //고객측 구독url
     }

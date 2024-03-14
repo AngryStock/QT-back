@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import qt.qr_backend.DTO.OrderDTO;
 import qt.qr_backend.DTO.OrderMenuDTO;
 import qt.qr_backend.controller.response.OrderMenuResponse;
 import qt.qr_backend.service.OrderMenuService;
@@ -24,6 +25,10 @@ public class OrderMenuController {
     public ResponseEntity<OrderMenuDTO> orderMenuSave(@RequestBody OrderMenuDTO orderMenuDTO){
         log.info("start save orderMenu");
         return ResponseEntity.ok(orderMenuService.saveOrderMenu(orderMenuDTO));
+    }
+    @PostMapping("/update")
+    public ResponseEntity<OrderMenuDTO> orderMenuUpdate(@RequestBody OrderMenuDTO orderMenuDTO){
+        return ResponseEntity.ok(orderMenuService.updateOrderMenu(orderMenuDTO));
     }
     @GetMapping("/delete/{orderMenuId}")
     public OrderMenuResponse orderMenuDelete(@PathVariable String orderMenuId){
