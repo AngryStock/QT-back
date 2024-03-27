@@ -101,7 +101,7 @@ public class SecurityConfig {
                                 "/findPassword", "/ceoImages", "/reissue").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**",
                                 "/swagger-resources/**", "/swagger-ui.html", "/webjars/**").permitAll()
-                        .requestMatchers("/admin").hasRole("ADMIN")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated());
 
         //필터 추가

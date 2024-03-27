@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import qt.qr_backend.domain.Ceo;
 import qt.qr_backend.domain.Store;
 
 @Repository
@@ -23,5 +24,10 @@ public class StoreRepository {
         return em.createQuery("select s from Store s where s.businessNumber = :businessNumber", Store.class)
                 .setParameter("businessNumber", businessNumber)
                 .getResultList();
+    }
+
+    // 모든 Store 정보 조회 - AdminService
+    public List<Store> findAll() {
+        return em.createQuery("select s from Store s", Store.class).getResultList();
     }
 }
