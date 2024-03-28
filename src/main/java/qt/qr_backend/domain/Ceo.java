@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @NoArgsConstructor
-@Getter
+@Getter @Setter
 @AllArgsConstructor
 @Builder
 public class Ceo extends DateEntity{
@@ -30,7 +30,6 @@ public class Ceo extends DateEntity{
     private String name;
     private String mobileNumber;
     private String loginId;
-    @Setter
     private String password;
     private String role;
     private String accountNumber;
