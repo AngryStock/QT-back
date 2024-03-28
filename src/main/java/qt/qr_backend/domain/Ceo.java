@@ -38,7 +38,7 @@ public class Ceo extends DateEntity{
     private String bank;
 
     private String businessReportCertificateFileUrl;
-    private String businessRegistrationFileUrl;
+    private String businessRegistrationFileUrl; //사업자 등록증
     private String copyOfBankbookFileUrl;
 
     public Ceo(String name, String mobileNumber, String loginId, String role, String bank,
