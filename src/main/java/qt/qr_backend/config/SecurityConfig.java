@@ -98,7 +98,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/login", "/", "/signup", "/findId",
-                                "/findPassword", "/ceoImages", "/reissue").permitAll()
+                                "/findPassword", "/ceoImages", "/reissue", "/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**",
                                 "/swagger-resources/**", "/swagger-ui.html", "/webjars/**").permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
