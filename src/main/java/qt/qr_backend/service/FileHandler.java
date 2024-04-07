@@ -23,8 +23,10 @@ public class FileHandler {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         String current_date = simpleDateFormat.format(new Date());
 
-        String absolutePath =  new File("").getAbsolutePath() + "/";
-        String path = "images/" + current_date;
+        String fileSeparator = File.separator; // OS 환경에 맞는 파일 구분자를 제공 (윈도우 : 역슬래시, 리눅스 : 슬래시)
+
+        String absolutePath =  new File("").getAbsolutePath() + fileSeparator;
+        String path = "images" + fileSeparator + current_date;
 
         //해당 경로에 폴더 및 파일이 존재하지 않을 경우 생성
         File file = new File(path);
@@ -52,7 +54,7 @@ public class FileHandler {
 
             String new_file_name = UUID.randomUUID() + multipartFile.getName() + originalFileExtension;
 
-            file = new File(absolutePath + path + "/" + new_file_name);
+            file = new File(absolutePath + path + fileSeparator + new_file_name);
             multipartFile.transferTo(file);
 
             return file.getPath();

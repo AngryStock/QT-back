@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @NoArgsConstructor
-@Getter
+@Getter @Setter
 @AllArgsConstructor
 @Builder
 public class Ceo extends DateEntity{
@@ -30,16 +30,15 @@ public class Ceo extends DateEntity{
     private String name;
     private String mobileNumber;
     private String loginId;
-    @Setter
     private String password;
     private String role;
     private String accountNumber;
     private String email;
     private String bank;
 
-    private String businessReportCertificateFileUrl;
-    private String businessRegistrationFileUrl;
-    private String copyOfBankbookFileUrl;
+    private String businessReportCertificateFileUrl; // 사업자 영업 신고증
+    private String businessRegistrationFileUrl; // 사업자 등록증
+    private String copyOfBankbookFileUrl; // 통장 사본
 
     public Ceo(String name, String mobileNumber, String loginId, String role, String bank,
                String accountNumber,
