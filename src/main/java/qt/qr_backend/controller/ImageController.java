@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import qt.qr_backend.controller.response.CeoImagesResponse;
 import qt.qr_backend.domain.Ceo;
 import qt.qr_backend.exception.ErrorResponse;
 import qt.qr_backend.repository.CeoRepository;

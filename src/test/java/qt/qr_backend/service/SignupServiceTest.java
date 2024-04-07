@@ -38,7 +38,7 @@ class SignupServiceTest {
                 "1111122222");
 
         Ceo ceo = new Ceo(ceoRequest.getName(), ceoRequest.getMobileNumber(), ceoRequest.getLoginId(),
-                null, ceoRequest.getBank(), ceoRequest.getAccountNumber(),
+                "ROLE_USER", ceoRequest.getBank(), ceoRequest.getAccountNumber(),
                 ceoRequest.getEmail(), ceoRequest.getBusinessReportCertificateFileUrl(), ceoRequest.getBusinessRegistrationFileUrl(),
                 ceoRequest.getCopyOfBankbookFileUrl());
         ceo.encodePassword(passwordEncoder, ceoRequest.getPassword());
