@@ -25,6 +25,7 @@ public class OrderDTO {
     private StoreDTO storeDTO;
     private LocalDateTime orderDate;
     private String status;
+    private int orderPrice;
 
 
     public Order toOrder(){
@@ -32,6 +33,7 @@ public class OrderDTO {
                 .store(StoreDTO.fromStoreDTOtoStore(storeDTO))
                 .orderDate(orderDate)
                 .status(status)
+                .orderPrice(orderPrice)
                 .build();
     }
 
@@ -41,6 +43,7 @@ public class OrderDTO {
                 .store(StoreDTO.fromStoreDTOtoStore(orderDTO.storeDTO))
                 .orderDate(orderDTO.orderDate)
                 .status(orderDTO.status)
+                .orderPrice(orderDTO.orderPrice)
                 .build();
     }
 
@@ -50,6 +53,7 @@ public class OrderDTO {
                 .storeDTO(StoreDTO.fromStoretoStoreDTO(order.getStore()))
                 .orderDate(order.getOrderDate())
                 .status(order.getStatus())
+                .orderPrice(order.getOrderPrice())
                 .build();
     }
     public static List<OrderDTO> listFromOrdertoOrderDTO(List<Order> list){

@@ -13,6 +13,7 @@ import qt.qr_backend.domain.Menu;
 import qt.qr_backend.domain.OrderMenu;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -23,8 +24,13 @@ public class OrderMenuDTO {
     private String id;
     private OrderDTO orderDTO;
     private MenuDTO menuDTO;
-    private int orderPrice;
-    private int count;
+    private int orderMenuPrice;
+
+    public OrderMenuDTO(OrderDTO orderDTO,MenuDTO menuDTO, int orderMenuPrice) {
+        this.orderDTO = orderDTO;
+        this.menuDTO = menuDTO;
+        this.orderMenuPrice = orderMenuPrice;
+    }
 
     public OrderMenuDTO setOrderDTOMap(OrderDTO orderDTO,OrderMenuDTO orderMenuDTO) {
         orderMenuDTO.setOrderDTO(orderDTO);
@@ -35,8 +41,7 @@ public class OrderMenuDTO {
         return OrderMenu.builder()
                 .order(OrderDTO.fromOrderDTOtoOrder(orderDTO))
                 .menu(MenuDTO.fromMenuDTOtoMenu(menuDTO))
-                .orderPrice(orderPrice)
-                .count(count)
+                .orderMenuPrice(orderMenuPrice)
                 .build();
     }
 
@@ -45,8 +50,7 @@ public class OrderMenuDTO {
                 .id(orderMenuDTO.id)
                 .order(OrderDTO.fromOrderDTOtoOrder(orderMenuDTO.orderDTO))
                 .menu(MenuDTO.fromMenuDTOtoMenu(orderMenuDTO.menuDTO))
-                .orderPrice(orderMenuDTO.orderPrice)
-                .count(orderMenuDTO.count)
+                .orderMenuPrice(orderMenuDTO.orderMenuPrice)
                 .build();
     }
 
@@ -55,8 +59,7 @@ public class OrderMenuDTO {
                 .id(orderMenu.getId())
                 .orderDTO(OrderDTO.fromOrdertoOrderDTO(orderMenu.getOrder()))
                 .menuDTO(MenuDTO.fromMenutoMenuDTO(orderMenu.getMenu()))
-                .orderPrice(orderMenu.getOrderPrice())
-                .count(orderMenu.getCount())
+                .orderMenuPrice(orderMenu.getOrderMenuPrice())
                 .build();
     }
     public static List<OrderMenuDTO> listFromOrderMenutoOrderMenuDTO(List<OrderMenu> list){
