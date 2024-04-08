@@ -1,5 +1,7 @@
 package qt.qr_backend.controller;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +13,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import qt.qr_backend.controller.request.SignupRequest;
+import qt.qr_backend.controller.request.SignupTestRequest;
+import qt.qr_backend.controller.request.StoreSignupRequest;
 import qt.qr_backend.controller.response.CeoImagesUrlResponse;
 import qt.qr_backend.controller.response.SignupResponse;
 import qt.qr_backend.exception.ErrorResponse;
@@ -18,9 +22,7 @@ import qt.qr_backend.service.FileHandler;
 import qt.qr_backend.service.SignupService;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Objects;
+import java.util.*;
 
 @Slf4j
 @RestController
@@ -37,6 +39,7 @@ public class SignUpController {
             @RequestParam MultipartFile businessReportCertificateFile,
             @RequestParam MultipartFile businessRegistrationFile,
             @RequestParam MultipartFile copyOfBankbookFile) throws IOException {
+
 
         String businessReportCertificateFileUrl = fileHandler.parseFileInfo(businessReportCertificateFile);
         String businessRegistrationFileUrl = fileHandler.parseFileInfo(businessRegistrationFile);
