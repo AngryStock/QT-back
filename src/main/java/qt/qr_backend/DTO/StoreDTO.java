@@ -26,7 +26,6 @@ public class StoreDTO {
     private String detailAddress;
     private String businessNumber;
     private int tableCount;
-
     private Approval approval;
 
     public static Store fromStoreDTOtoStore(StoreDTO store) {

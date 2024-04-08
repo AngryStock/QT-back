@@ -50,13 +50,11 @@
     var sock = new SockJS("/ws-stomp");
     var ws = Stomp.over(sock);
     var reconnect = 0;
-    var testJson = {"test":"test"}
     var json = [{
-        "orderDTO":{},
-        "menuDTO":{
-            "id": "03398175-c1f4-4e7c-830d-9da16673e27f",
+        "menu": {
+            "id": "03c0cef9-95d6-4781-871c-30074879e12b",
             "category": {
-                "id": "b93c9113-2a5f-49fc-95c0-8ae075bdadd4",
+                "id": "8d2a567e-eca5-4313-9626-dca30fa718ab",
                 "store": {
                     "id": "9d85fa11-e525-4da2-836c-b6e612ebe436",
                     "ceo": {
@@ -68,7 +66,10 @@
                         "role": "role",
                         "accountNumber": "123-45-678910",
                         "email": "apple@gmail.com",
-                        "bank": "seoul"
+                        "bank": "seoul",
+                        "businessReportCertificateFileUrl": "url2",
+                        "businessRegistrationFileUrl": "url1",
+                        "copyOfBankbookFileUrl": "url3"
                     },
                     "name": "appleMangoDel",
                     "phoneNumber": "010-1234-5678",
@@ -78,95 +79,115 @@
                     "tableCount": 10,
                     "approval": "APPROVE"
                 },
-                "name": "Updated Category pineAppleMango"
+                "name": "Updated Category pineAppleMango for api"
             },
-            "name": "testingMenuName",
-            "price": 50000,
-            "description": "testing description"
+            "name": "Updated Menu pineAppleMango for api",
+            "price": 3000,
+            "description": "Updated Menu description pineAppleMango for api",
+            "menuImageUrl": "/Users/pss/Desktop/programming/spring study/프로젝트/QT-back/images/20240407/7e28b952-f949-4bba-b29e-60bdf5ddfa87menuImageFile.png"
         },
         "orderMenuPrice": 100000,
         "orderMenuOptionDTOList":[
-            {"orderMenuDTO":{},
-            "menuOptionDTO":{
-                "id": "5d75baa7-aca2-44d3-907c-c60b1a35b880",
-                "menu": {
-                    "id": "03398175-c1f4-4e7c-830d-9da16673e27f",
-                    "category": {
-                        "id": "b93c9113-2a5f-49fc-95c0-8ae075bdadd4",
-                        "store": {
-                            "id": "9d85fa11-e525-4da2-836c-b6e612ebe436",
-                            "ceo": {
-                                "id": "19166152-c336-4650-b8cb-8d8a69517476",
-                                "name": "appleMango",
-                                "mobileNumber": "010-1234-5678",
-                                "loginId": "appleLogin",
-                                "password": "applePassword",
-                                "role": "role",
-                                "accountNumber": "123-45-678910",
-                                "email": "apple@gmail.com",
-                                "bank": "seoul"
+            {
+                "menuOption": {
+                    "id": "36fd00e3-f7c2-42e3-8f40-193b7d9808c6",
+                    "optionCategory": {
+                        "id": "4cfbde9b-80e4-492d-9595-bbb2b2a3a593",
+                        "menu": {
+                            "id": "03c0cef9-95d6-4781-871c-30074879e12b",
+                            "category": {
+                                "id": "8d2a567e-eca5-4313-9626-dca30fa718ab",
+                                "store": {
+                                    "id": "9d85fa11-e525-4da2-836c-b6e612ebe436",
+                                    "ceo": {
+                                        "id": "19166152-c336-4650-b8cb-8d8a69517476",
+                                        "name": "appleMango",
+                                        "mobileNumber": "010-1234-5678",
+                                        "loginId": "appleLogin",
+                                        "password": "applePassword",
+                                        "role": "role",
+                                        "accountNumber": "123-45-678910",
+                                        "email": "apple@gmail.com",
+                                        "bank": "seoul",
+                                        "businessReportCertificateFileUrl": "url2",
+                                        "businessRegistrationFileUrl": "url1",
+                                        "copyOfBankbookFileUrl": "url3"
+                                    },
+                                    "name": "appleMangoDel",
+                                    "phoneNumber": "010-1234-5678",
+                                    "mainAddress": "mangoaddress",
+                                    "detailAddress": "appleaddress",
+                                    "businessNumber": "102",
+                                    "tableCount": 10,
+                                    "approval": "APPROVE"
+                                },
+                                "name": "Updated Category pineAppleMango for api"
                             },
-                            "name": "appleMangoDel",
-                            "phoneNumber": "010-1234-5678",
-                            "mainAddress": "mangoaddress",
-                            "detailAddress": "appleaddress",
-                            "businessNumber": "102",
-                            "tableCount": 10,
-                            "approval": "APPROVE"
+                            "name": "Updated Menu pineAppleMango for api",
+                            "price": 3000,
+                            "description": "Updated Menu description pineAppleMango for api",
+                            "menuImageUrl": "/Users/pss/Desktop/programming/spring study/프로젝트/QT-back/images/20240407/7e28b952-f949-4bba-b29e-60bdf5ddfa87menuImageFile.png"
                         },
-                        "name": "Updated Category pineAppleMango"
+                        "name": "bread-name option category name for api no.2"
                     },
-                    "name": "testingMenuName",
-                    "price": 50000,
-                    "description": "testing description"
-                },
-                "name": "appleMangoMenuOptionNameThr",
-                "price": 3000
-            }},
-            {"orderMenuDTO":{},
-                "menuOptionDTO":{
-                "id": "828a3bd2-6fdf-476e-b68e-a4ca38153395",
-                "menu": {
-                    "id": "03398175-c1f4-4e7c-830d-9da16673e27f",
-                    "category": {
-                        "id": "b93c9113-2a5f-49fc-95c0-8ae075bdadd4",
-                        "store": {
-                            "id": "9d85fa11-e525-4da2-836c-b6e612ebe436",
-                            "ceo": {
-                                "id": "19166152-c336-4650-b8cb-8d8a69517476",
-                                "name": "appleMango",
-                                "mobileNumber": "010-1234-5678",
-                                "loginId": "appleLogin",
-                                "password": "applePassword",
-                                "role": "role",
-                                "accountNumber": "123-45-678910",
-                                "email": "apple@gmail.com",
-                                "bank": "seoul"
+                    "name": "bread name menuOption no.2",
+                    "price": 2000,
+                    "menuOptionImageUrl": "/Users/pss/Desktop/programming/spring study/프로젝트/QT-back/images/20240407/7e28b952-f949-4bba-b29e-60bdf5ddfa87menuImageFile.png"
+                }
+            },
+            {
+                "menuOption": {
+                    "id": "e8c9bd0c-eb09-4c91-bd40-1a61459d0625",
+                    "optionCategory": {
+                        "id": "4cfbde9b-80e4-492d-9595-bbb2b2a3a593",
+                        "menu": {
+                            "id": "03c0cef9-95d6-4781-871c-30074879e12b",
+                            "category": {
+                                "id": "8d2a567e-eca5-4313-9626-dca30fa718ab",
+                                "store": {
+                                    "id": "9d85fa11-e525-4da2-836c-b6e612ebe436",
+                                    "ceo": {
+                                        "id": "19166152-c336-4650-b8cb-8d8a69517476",
+                                        "name": "appleMango",
+                                        "mobileNumber": "010-1234-5678",
+                                        "loginId": "appleLogin",
+                                        "password": "applePassword",
+                                        "role": "role",
+                                        "accountNumber": "123-45-678910",
+                                        "email": "apple@gmail.com",
+                                        "bank": "seoul",
+                                        "businessReportCertificateFileUrl": "url2",
+                                        "businessRegistrationFileUrl": "url1",
+                                        "copyOfBankbookFileUrl": "url3"
+                                    },
+                                    "name": "appleMangoDel",
+                                    "phoneNumber": "010-1234-5678",
+                                    "mainAddress": "mangoaddress",
+                                    "detailAddress": "appleaddress",
+                                    "businessNumber": "102",
+                                    "tableCount": 10,
+                                    "approval": "APPROVE"
+                                },
+                                "name": "Updated Category pineAppleMango for api"
                             },
-                            "name": "appleMangoDel",
-                            "phoneNumber": "010-1234-5678",
-                            "mainAddress": "mangoaddress",
-                            "detailAddress": "appleaddress",
-                            "businessNumber": "102",
-                            "tableCount": 10,
-                            "approval": "APPROVE"
+                            "name": "Updated Menu pineAppleMango for api",
+                            "price": 3000,
+                            "description": "Updated Menu description pineAppleMango for api",
+                            "menuImageUrl": "/Users/pss/Desktop/programming/spring study/프로젝트/QT-back/images/20240407/7e28b952-f949-4bba-b29e-60bdf5ddfa87menuImageFile.png"
                         },
-                        "name": "Updated Category pineAppleMango"
+                        "name": "bread-name option category name for api no.2"
                     },
-                    "name": "testingMenuName",
-                    "price": 50000,
-                    "description": "testing description"
-                },
-                "name": "appleMangoMenuOptionNameTwo",
-                "price": 2000
-            }}
+                    "name": "bread name menuOption no.1",
+                    "price": 1000,
+                    "menuOptionImageUrl": "/Users/pss/Desktop/programming/spring study/프로젝트/QT-back/images/20240407/7e28b952-f949-4bba-b29e-60bdf5ddfa87menuImageFile.png"
+                }
+            }
         ]
     },{
-        "OrderDTO":{},
-        "menuDTO":{
-            "id": "03398175-c1f4-4e7c-830d-9da16673e27f",
+        "menu": {
+            "id": "f21b6a6d-b4bd-4035-a52a-cf7e74744671",
             "category": {
-                "id": "b93c9113-2a5f-49fc-95c0-8ae075bdadd4",
+                "id": "8d2a567e-eca5-4313-9626-dca30fa718ab",
                 "store": {
                     "id": "9d85fa11-e525-4da2-836c-b6e612ebe436",
                     "ceo": {
@@ -178,7 +199,10 @@
                         "role": "role",
                         "accountNumber": "123-45-678910",
                         "email": "apple@gmail.com",
-                        "bank": "seoul"
+                        "bank": "seoul",
+                        "businessReportCertificateFileUrl": "url2",
+                        "businessRegistrationFileUrl": "url1",
+                        "copyOfBankbookFileUrl": "url3"
                     },
                     "name": "appleMangoDel",
                     "phoneNumber": "010-1234-5678",
@@ -188,88 +212,110 @@
                     "tableCount": 10,
                     "approval": "APPROVE"
                 },
-                "name": "Updated Category pineAppleMango"
+                "name": "Updated Category pineAppleMango for api"
             },
-            "name": "testingMenuName",
-            "price": 50000,
-            "description": "testing description"
+            "name": "Updated Menu pineAppleMango for api no.2",
+            "price": 3000,
+            "description": "Updated Menu description pineAppleMango for api",
+            "menuImageUrl": "/Users/pss/Desktop/programming/spring study/프로젝트/QT-back/images/20240407/7e28b952-f949-4bba-b29e-60bdf5ddfa87menuImageFile.png"
         },
         "orderMenuPrice": 200000,
         "orderMenuOptionDTOList":[
-            {"orderMenuDTO":{},
-                "menuOptionDTO":{
-            "id": "828a3bd2-6fdf-476e-b68e-a4ca38153395",
-            "menu": {
-                "id": "03398175-c1f4-4e7c-830d-9da16673e27f",
-                "category": {
-                    "id": "b93c9113-2a5f-49fc-95c0-8ae075bdadd4",
-                    "store": {
-                        "id": "9d85fa11-e525-4da2-836c-b6e612ebe436",
-                        "ceo": {
-                            "id": "19166152-c336-4650-b8cb-8d8a69517476",
-                            "name": "appleMango",
-                            "mobileNumber": "010-1234-5678",
-                            "loginId": "appleLogin",
-                            "password": "applePassword",
-                            "role": "role",
-                            "accountNumber": "123-45-678910",
-                            "email": "apple@gmail.com",
-                            "bank": "seoul"
-                        },
-                        "name": "appleMangoDel",
-                        "phoneNumber": "010-1234-5678",
-                        "mainAddress": "mangoaddress",
-                        "detailAddress": "appleaddress",
-                        "businessNumber": "102",
-                        "tableCount": 10,
-                        "approval": "APPROVE"
-                    },
-                    "name": "Updated Category pineAppleMango"
-                },
-                "name": "testingMenuName",
-                "price": 50000,
-                "description": "testing description"
-            },
-            "name": "appleMangoMenuOptionNameTwo",
-            "price": 2000}
-        },
-            {"orderMenuDTO":{},
-                "menuOptionDTO":{
-                "id": "baa8f665-5548-4e55-b77b-ebe0d8f04ea9",
-                "menu": {
-                    "id": "03398175-c1f4-4e7c-830d-9da16673e27f",
-                    "category": {
-                        "id": "b93c9113-2a5f-49fc-95c0-8ae075bdadd4",
-                        "store": {
-                            "id": "9d85fa11-e525-4da2-836c-b6e612ebe436",
-                            "ceo": {
-                                "id": "19166152-c336-4650-b8cb-8d8a69517476",
-                                "name": "appleMango",
-                                "mobileNumber": "010-1234-5678",
-                                "loginId": "appleLogin",
-                                "password": "applePassword",
-                                "role": "role",
-                                "accountNumber": "123-45-678910",
-                                "email": "apple@gmail.com",
-                                "bank": "seoul"
+            {
+                "menuOption": {
+                    "id": "6136180d-c4fd-45b6-b0bb-85dee788291a",
+                    "optionCategory": {
+                        "id": "025bec27-735f-42b8-a50a-8ed6d2eda1b1",
+                        "menu": {
+                            "id": "f21b6a6d-b4bd-4035-a52a-cf7e74744671",
+                            "category": {
+                                "id": "8d2a567e-eca5-4313-9626-dca30fa718ab",
+                                "store": {
+                                    "id": "9d85fa11-e525-4da2-836c-b6e612ebe436",
+                                    "ceo": {
+                                        "id": "19166152-c336-4650-b8cb-8d8a69517476",
+                                        "name": "appleMango",
+                                        "mobileNumber": "010-1234-5678",
+                                        "loginId": "appleLogin",
+                                        "password": "applePassword",
+                                        "role": "role",
+                                        "accountNumber": "123-45-678910",
+                                        "email": "apple@gmail.com",
+                                        "bank": "seoul",
+                                        "businessReportCertificateFileUrl": "url2",
+                                        "businessRegistrationFileUrl": "url1",
+                                        "copyOfBankbookFileUrl": "url3"
+                                    },
+                                    "name": "appleMangoDel",
+                                    "phoneNumber": "010-1234-5678",
+                                    "mainAddress": "mangoaddress",
+                                    "detailAddress": "appleaddress",
+                                    "businessNumber": "102",
+                                    "tableCount": 10,
+                                    "approval": "APPROVE"
+                                },
+                                "name": "Updated Category pineAppleMango for api"
                             },
-                            "name": "appleMangoDel",
-                            "phoneNumber": "010-1234-5678",
-                            "mainAddress": "mangoaddress",
-                            "detailAddress": "appleaddress",
-                            "businessNumber": "102",
-                            "tableCount": 10,
-                            "approval": "APPROVE"
+                            "name": "Updated Menu pineAppleMango for api no.2",
+                            "price": 3000,
+                            "description": "Updated Menu description pineAppleMango for api",
+                            "menuImageUrl": "/Users/pss/Desktop/programming/spring study/프로젝트/QT-back/images/20240407/7e28b952-f949-4bba-b29e-60bdf5ddfa87menuImageFile.png"
                         },
-                        "name": "Updated Category pineAppleMango"
+                        "name": "tomato-name option category name for api"
                     },
-                    "name": "testingMenuName",
-                    "price": 50000,
-                    "description": "testing description"
-                },
-                "name": "appleMangoMenuOptionNameOne",
-                "price": 1000}
-            }]
+                    "name": "tomato-name menu option name for api no.1",
+                    "price": 1000,
+                    "menuOptionImageUrl": "/Users/pss/Desktop/programming/spring study/프로젝트/QT-back/images/20240408/7c5fb254-fa28-4384-8247-44488618ab36menuOptionImageFile.png"
+                }
+            },
+            {
+                "menuOption": {
+                    "id": "dbd50a71-84d8-434d-b4e0-643036b9c7e7",
+                    "optionCategory": {
+                        "id": "025bec27-735f-42b8-a50a-8ed6d2eda1b1",
+                        "menu": {
+                            "id": "f21b6a6d-b4bd-4035-a52a-cf7e74744671",
+                            "category": {
+                                "id": "8d2a567e-eca5-4313-9626-dca30fa718ab",
+                                "store": {
+                                    "id": "9d85fa11-e525-4da2-836c-b6e612ebe436",
+                                    "ceo": {
+                                        "id": "19166152-c336-4650-b8cb-8d8a69517476",
+                                        "name": "appleMango",
+                                        "mobileNumber": "010-1234-5678",
+                                        "loginId": "appleLogin",
+                                        "password": "applePassword",
+                                        "role": "role",
+                                        "accountNumber": "123-45-678910",
+                                        "email": "apple@gmail.com",
+                                        "bank": "seoul",
+                                        "businessReportCertificateFileUrl": "url2",
+                                        "businessRegistrationFileUrl": "url1",
+                                        "copyOfBankbookFileUrl": "url3"
+                                    },
+                                    "name": "appleMangoDel",
+                                    "phoneNumber": "010-1234-5678",
+                                    "mainAddress": "mangoaddress",
+                                    "detailAddress": "appleaddress",
+                                    "businessNumber": "102",
+                                    "tableCount": 10,
+                                    "approval": "APPROVE"
+                                },
+                                "name": "Updated Category pineAppleMango for api"
+                            },
+                            "name": "Updated Menu pineAppleMango for api no.2",
+                            "price": 3000,
+                            "description": "Updated Menu description pineAppleMango for api",
+                            "menuImageUrl": "/Users/pss/Desktop/programming/spring study/프로젝트/QT-back/images/20240407/7e28b952-f949-4bba-b29e-60bdf5ddfa87menuImageFile.png"
+                        },
+                        "name": "tomato-name option category name for api"
+                    },
+                    "name": "tomato-name menu option name for api no.2",
+                    "price": 1000,
+                    "menuOptionImageUrl": "/Users/pss/Desktop/programming/spring study/프로젝트/QT-back/images/20240408/7c5fb254-fa28-4384-8247-44488618ab36menuOptionImageFile.png"
+                }
+            }
+        ]
     }
     ]
     // vue.js
@@ -278,22 +324,12 @@
         data: {
             orderId: "2068ce75-022d-4013-87fc-b425ac91be81",
             tableId: ["1","2"]
-            // room: {},
-            // sender: '',
-            // message: '',
-            // messages: []
-        },
-// created() {
-//     this.roomId = localStorage.getItem('wschat.roomId');
-//     // this.roomId = this.room.roomId;
-//     this.sender = localStorage.getItem('wschat.sender');
-//     this.findRoom();
-// },
+            },
         methods: {
             sendMessage: function() {
                 //고객 측에서 random uuid 하나를 생성하여 send
                 var uuid = "2068ce75-022d-4013-87fc-b425ac91be81"
-                ws.send("/pub/order/message/"+uuid, {},
+                ws.send("/pub/order/message/"+vm.$data.tableId[0]+"/"+uuid, {},
                     JSON.stringify(json));
             },
             sendOrderInfo: function (){
@@ -347,7 +383,7 @@
         });
     }
     connect();
-    connect2();
+    //connect2();
 </script>
 </body>
 </html>

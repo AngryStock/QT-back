@@ -15,39 +15,39 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderMenuOptionDTO {
     private String id;
-    private OrderMenuDTO orderMenuDTO;
-    private MenuOptionDTO menuOptionDTO;
+    private OrderMenuDTO orderMenu;
+    private MenuOptionDTO menuOption;
 
-    public OrderMenuOptionDTO(MenuOptionDTO menuOptionDTO) {
-        this.menuOptionDTO = menuOptionDTO;
+    public OrderMenuOptionDTO(MenuOptionDTO menuOption) {
+        this.menuOption = menuOption;
     }
 
-    public OrderMenuOptionDTO(OrderMenuDTO orderMenuDTO, MenuOptionDTO menuOptionDTO) {
-        this.orderMenuDTO = orderMenuDTO;
-        this.menuOptionDTO = menuOptionDTO;
+    public OrderMenuOptionDTO(OrderMenuDTO orderMenu, MenuOptionDTO menuOption) {
+        this.orderMenu = orderMenu;
+        this.menuOption = menuOption;
     }
 
 
     public OrderMenuOption toOrderMenuOption(){
         return OrderMenuOption.builder()
-                .orderMenu(OrderMenuDTO.fromOrderMenuDTOtoOrderMenu(orderMenuDTO))
-                .menuOption(MenuOptionDTO.fromMenuOptionDTOtoMenuOption(menuOptionDTO))
+                .orderMenu(OrderMenuDTO.fromOrderMenuDTOtoOrderMenu(orderMenu))
+                .menuOption(MenuOptionDTO.fromMenuOptionDTOtoMenuOption(menuOption))
                 .build();
     }
 
     public static OrderMenuOption fromOrderMenuOptionDTOtoOrderMenuOption(OrderMenuOptionDTO orderMenuOptionDTO){
         return OrderMenuOption.builder()
                 .id(orderMenuOptionDTO.id)
-                .orderMenu(OrderMenuDTO.fromOrderMenuDTOtoOrderMenu(orderMenuOptionDTO.orderMenuDTO))
-                .menuOption(MenuOptionDTO.fromMenuOptionDTOtoMenuOption(orderMenuOptionDTO.menuOptionDTO))
+                .orderMenu(OrderMenuDTO.fromOrderMenuDTOtoOrderMenu(orderMenuOptionDTO.orderMenu))
+                .menuOption(MenuOptionDTO.fromMenuOptionDTOtoMenuOption(orderMenuOptionDTO.menuOption))
                 .build();
     }
 
     public static OrderMenuOptionDTO fromOrderMenuOptiontoOrderMenuOptionDTO(OrderMenuOption orderMenuOption){
         return OrderMenuOptionDTO.builder()
                 .id(orderMenuOption.getId())
-                .orderMenuDTO(OrderMenuDTO.fromOrderMenutoOrderMenuDTO(orderMenuOption.getOrderMenu()))
-                .menuOptionDTO(MenuOptionDTO.fromMenuOptiontoMenuOptionDTO(orderMenuOption.getMenuOption()))
+                .orderMenu(OrderMenuDTO.fromOrderMenutoOrderMenuDTO(orderMenuOption.getOrderMenu()))
+                .menuOption(MenuOptionDTO.fromMenuOptiontoMenuOptionDTO(orderMenuOption.getMenuOption()))
                 .build();
     }
     public static List<OrderMenuOptionDTO> listFromOrderMenuOptiontoOrderMenuOptionDTO(List<OrderMenuOption> list){

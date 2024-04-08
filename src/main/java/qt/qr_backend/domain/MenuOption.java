@@ -20,8 +20,8 @@ public class MenuOption {
     private String id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "menu_id")
-    private Menu menu;
+    @JoinColumn(name = "option_category_id")
+    private OptionCategory optionCategory;
 
     @Column(name = "option_name")
     private String name;
@@ -29,12 +29,14 @@ public class MenuOption {
     @Column(name = "option_price")
     private int price;
 
+    private String menuOptionImageUrl;
+
     public void setId(String id) {
         this.id = id;
     }
 
-    public void setMenu(Menu menu) {
-        this.menu = menu;
+    public void setOptionCategory(OptionCategory optionCategory) {
+        this.optionCategory = optionCategory;
     }
 
     public void setName(String name) {

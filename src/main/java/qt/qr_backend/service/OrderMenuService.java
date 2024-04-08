@@ -39,14 +39,14 @@ public class OrderMenuService {
 
     public List<OrderMenuDTO> saveAllOrderMenu(List<OrderMenuRequest> orderMenuRequestList, OrderDTO orderDTO){
         Order savedOrder = orderRepository.save(OrderDTO.fromOrderDTOtoOrder(orderDTO));
-        List<OrderMenuDTO> orderMenuDTOList = orderMenuRequestList.stream().map(l -> new OrderMenuDTO(orderDTO,l.getMenuDTO(), l.getOrderMenuPrice())).toList();
+        List<OrderMenuDTO> orderMenuDTOList = orderMenuRequestList.stream().map(l -> new OrderMenuDTO(orderDTO,l.getMenu(), l.getOrderMenuPrice())).toList();
         List<OrderMenuDTO> orderMenuDTOS = OrderMenuDTO.listFromOrderMenutoOrderMenuDTO(orderMenuRepository.saveAll(orderMenuDTOList.stream().map(OrderMenuDTO::toOrderMenu).toList()));
         List<OrderMenuOptionDTO> orderMenuOptionDTOList = new ArrayList<>();
 
         for (int i=0;i<orderMenuDTOS.size();i++){
             List<OrderMenuOptionDTO> list = orderMenuRequestList.get(i).getOrderMenuOptionDTOList();
             for (OrderMenuOptionDTO orderMenuOptionDTO : list) {
-                orderMenuOptionDTOList.add(new OrderMenuOptionDTO(orderMenuDTOS.get(i), orderMenuOptionDTO.getMenuOptionDTO()));
+                orderMenuOptionDTOList.add(new OrderMenuOptionDTO(orderMenuDTOS.get(i), orderMenuOptionDTO.getMenuOption()));
             }
         }
         orderMenuOptionRepository.saveAll(orderMenuOptionDTOList.stream().map(OrderMenuOptionDTO::toOrderMenuOption).toList());

@@ -23,6 +23,7 @@ public class MenuDTO {
     private String name;
     private int price;
     private String description;
+    private String menuImageUrl;
 
     public Menu toMenu(){
         return Menu.builder()
@@ -30,6 +31,7 @@ public class MenuDTO {
                 .name(name)
                 .price(price)
                 .description(description)
+                .menuImageUrl(menuImageUrl)
                 .build();
     }
     public static Menu fromMenuDTOtoMenu(MenuDTO menuDTO){
@@ -39,6 +41,7 @@ public class MenuDTO {
                 .name(menuDTO.name)
                 .price(menuDTO.price)
                 .description(menuDTO.description)
+                .menuImageUrl(menuDTO.menuImageUrl)
                 .build();
     }
     public static MenuDTO fromMenutoMenuDTO(Menu menu){
@@ -48,6 +51,7 @@ public class MenuDTO {
                 .name(menu.getName())
                 .price(menu.getPrice())
                 .description(menu.getDescription())
+                .menuImageUrl(menu.getMenuImageUrl())
                 .build();
     }
     public static List<MenuDTO> listFromMenutoMenuDTO(List<Menu> list){

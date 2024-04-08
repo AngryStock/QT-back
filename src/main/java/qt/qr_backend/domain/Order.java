@@ -30,6 +30,8 @@ public class Order {
     @Column(name = "order_status")
     private String status;
 
+    private String tableId;
+
     private int orderPrice;
 
     public void setId(String id) {
@@ -50,5 +52,9 @@ public class Order {
 
     public void setOrderPrice(int orderPrice) {
         this.orderPrice = orderPrice;
+    }
+
+    public void setTableId(String tableId) {
+        this.tableId = tableId;
     }
 }

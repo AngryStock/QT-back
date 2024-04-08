@@ -22,38 +22,42 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderDTO {
     private String id;
-    private StoreDTO storeDTO;
+    private StoreDTO store;
     private LocalDateTime orderDate;
     private String status;
     private int orderPrice;
+    private String tableId;
 
 
     public Order toOrder(){
         return Order.builder()
-                .store(StoreDTO.fromStoreDTOtoStore(storeDTO))
+                .store(StoreDTO.fromStoreDTOtoStore(store))
                 .orderDate(orderDate)
                 .status(status)
                 .orderPrice(orderPrice)
+                .tableId(tableId)
                 .build();
     }
 
     public static Order fromOrderDTOtoOrder(OrderDTO orderDTO){
         return Order.builder()
                 .id(orderDTO.id)
-                .store(StoreDTO.fromStoreDTOtoStore(orderDTO.storeDTO))
+                .store(StoreDTO.fromStoreDTOtoStore(orderDTO.store))
                 .orderDate(orderDTO.orderDate)
                 .status(orderDTO.status)
                 .orderPrice(orderDTO.orderPrice)
+                .tableId(orderDTO.tableId)
                 .build();
     }
 
     public static OrderDTO fromOrdertoOrderDTO(Order order){
         return OrderDTO.builder()
                 .id(order.getId())
-                .storeDTO(StoreDTO.fromStoretoStoreDTO(order.getStore()))
+                .store(StoreDTO.fromStoretoStoreDTO(order.getStore()))
                 .orderDate(order.getOrderDate())
                 .status(order.getStatus())
                 .orderPrice(order.getOrderPrice())
+                .tableId(order.getTableId())
                 .build();
     }
     public static List<OrderDTO> listFromOrdertoOrderDTO(List<Order> list){
