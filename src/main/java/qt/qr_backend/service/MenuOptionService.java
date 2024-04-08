@@ -37,15 +37,15 @@ public class MenuOptionService {
         MenuOption menuOption = new MenuOption();
         if(findedMenuOption.isPresent()){
             menuOption.setId(findedMenuOption.get().getId());
-            menuOption.setMenu(findedMenuOption.get().getMenu());
+            menuOption.setOptionCategory(findedMenuOption.get().getOptionCategory());
             menuOption.setName(findedMenuOption.get().getName());
             menuOption.setPrice(findedMenuOption.get().getPrice());
         }
         return MenuOptionDTO.fromMenuOptiontoMenuOptionDTO(menuOption);
     }
-    public List<MenuOptionDTO> findMenuOptionListByMenuId(String id){
-        List<MenuOption> findedMenuOptionByCategoryId = menuOptionRepository.findByMenu_Id(id);
-        return MenuOptionDTO.listFromMenuOptionToMenuOptionDTO(findedMenuOptionByCategoryId);
+    public List<MenuOptionDTO> findMenuOptionListByOptionCategoryId(String id){
+        List<MenuOption> findedMenuOptionByOptionCategoryId = menuOptionRepository.findByOptionCategory_Id(id);
+        return MenuOptionDTO.listFromMenuOptionToMenuOptionDTO(findedMenuOptionByOptionCategoryId);
     }
 
     public List<MenuOptionDTO> findAllMenuOption(){

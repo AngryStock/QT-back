@@ -1,6 +1,7 @@
 package qt.qr_backend.controller;
 
 
+import io.swagger.v3.core.util.Json;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.Response;
@@ -9,8 +10,10 @@ import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.*;
+import qt.qr_backend.DTO.MessageDTO;
 import qt.qr_backend.DTO.OrderDTO;
 import qt.qr_backend.DTO.OrderMenuDTO;
+import qt.qr_backend.DTO.OrderMenuRequest;
 import qt.qr_backend.controller.response.OrderResponse;
 import qt.qr_backend.service.OrderMenuService;
 import qt.qr_backend.service.OrderService;
@@ -39,21 +42,28 @@ public class OrderController {
         return ResponseEntity.ok(orderService.updateOrder(orderDTO));
     }
 
-    @MessageMapping("/order/message/{orderId}")//고객이 사장에게 주문 정보 보내기/pub/order/message
+    @MessageMapping("/order/message/{tableId}/{orderId}")//고객이 사장에게 주문 정보 보내기/pub/order/message/ceo
     //이때 고객쪽에서 orderId를 보내주면 이걸 기반으로 Order를 만들어주자
-    public void getOrderFromCustomer(List<OrderMenuDTO> list, @DestinationVariable String orderId){
+    public void getOrderFromCustomer(List<OrderMenuRequest> list,@DestinationVariable String tableId ,@DestinationVariable String orderId){
+        //orderPrice는 orderMenuPrice 받아오던가 여기서 계산해주던가
         OrderDTO waitOrder = new OrderDTO(orderId,
-                list.get(0).getMenuDTO().getCategory().getStore(),
+                list.get(0).getMenu().getCategory().getStore(),
                 LocalDateTime.now(),
-                "WAIT");
-        List<OrderMenuDTO> orderMenuDTOList = orderMenuService.saveAllOrderMenu(list.stream().map(l -> l.setOrderDTOMap(waitOrder, l)).toList(),waitOrder);
-        messagingTemplate.convertAndSend("/sub/order/getOrder/storeId/"+waitOrder.getStoreDTO().getId(),orderMenuDTOList);
+                "WAIT", 123123,tableId);
+        List<OrderMenuDTO> orderMenuDTOList = orderMenuService.saveAllOrderMenu(list,waitOrder);
+        messagingTemplate.convertAndSend("/sub/order/getOrder/storeId/"+waitOrder.getStore().getId(),orderMenuDTOList);
         //사장측 구독 url
+    }
+    @MessageMapping("/order/table/{tableId}")//고객이 사장에게 주문 정보 보내기/pub/order/message/ceo
+    //이때 고객쪽에서 orderId를 보내주면 이걸 기반으로 Order를 만들어주자
+    public void patchMenuToCustomer(MessageDTO message, @DestinationVariable String tableId){
+
+        messagingTemplate.convertAndSend("/sub/order/table/"+tableId,message);
     }
     @MessageMapping("/order/orderOXmessage/{oxMessage}")//사장이 고객에게 주문 상태 보내기/pub/order/orderOXmessage
     public void orderOXMessageToCustomer(List<OrderMenuDTO> orderMenuDTOList,@DestinationVariable String oxMessage){
-        orderMenuDTOList.get(0).getOrderDTO().changeStatus(oxMessage);
-        OrderDTO orderDTO = orderService.updateOrder(orderMenuDTOList.get(0).getOrderDTO());
+        orderMenuDTOList.get(0).getOrder().changeStatus(oxMessage);
+        OrderDTO orderDTO = orderService.updateOrder(orderMenuDTOList.get(0).getOrder());
         messagingTemplate.convertAndSend("/sub/order/OXmessage/OrderId/"+orderDTO.getId(),orderDTO);
         //고객측 구독url
     }

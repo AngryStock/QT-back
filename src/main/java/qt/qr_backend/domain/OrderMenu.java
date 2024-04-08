@@ -7,6 +7,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,8 +29,7 @@ public class OrderMenu {
     @JoinColumn(name = "menu_id")
     private Menu menu;
 
-    private int orderPrice;
-    private int count;
+    private int orderMenuPrice;
 
     public void setId(String id) {
         this.id = id;
@@ -41,11 +43,7 @@ public class OrderMenu {
         this.menu = menu;
     }
 
-    public void setOrderPrice(int orderPrice) {
-        this.orderPrice = orderPrice;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
+    public void setOrderMenuPrice(int orderMenuPrice) {
+        this.orderMenuPrice = orderMenuPrice;
     }
 }

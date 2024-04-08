@@ -28,6 +28,7 @@ public class Menu {
     @Column(name = "menu_price")
     private int price;
     private String description;
+    private String menuImageUrl;
 
     public void setId(String id) {
         this.id = id;
@@ -47,5 +48,9 @@ public class Menu {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setMenuImageUrl(String menuImageUrl) {
+        this.menuImageUrl = menuImageUrl;
     }
 }

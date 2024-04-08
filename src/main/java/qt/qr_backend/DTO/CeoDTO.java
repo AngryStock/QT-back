@@ -18,6 +18,9 @@ public class CeoDTO {
     private String accountNumber;
     private String email;
     private String bank;
+    private String businessReportCertificateFileUrl; // 사업자 영업 신고증
+    private String businessRegistrationFileUrl; // 사업자 등록증
+    private String copyOfBankbookFileUrl;
 
     public static Ceo fromCeoDTOtoCeo(CeoDTO ceo) {
         return Ceo.builder()
@@ -30,6 +33,9 @@ public class CeoDTO {
                 .accountNumber(ceo.accountNumber)
                 .email(ceo.email)
                 .bank(ceo.bank)
+                .businessReportCertificateFileUrl(ceo.businessReportCertificateFileUrl)
+                .businessRegistrationFileUrl(ceo.businessRegistrationFileUrl)
+                .copyOfBankbookFileUrl(ceo.copyOfBankbookFileUrl)
                 .build();
     }
 
@@ -44,6 +50,9 @@ public class CeoDTO {
                 .accountNumber(ceo.getAccountNumber())
                 .email(ceo.getEmail())
                 .bank(ceo.getBank())
+                .businessReportCertificateFileUrl(ceo.getBusinessReportCertificateFileUrl())
+                .businessRegistrationFileUrl(ceo.getBusinessRegistrationFileUrl())
+                .copyOfBankbookFileUrl(ceo.getCopyOfBankbookFileUrl())
                 .build();
     }
 }
