@@ -98,7 +98,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/login", "/", "/signup", "/findId",
-                                "/findPassword", "/ceoImages", "/reissue", "/**").permitAll()
+                                "/findPassword", "/image/**", "/reissue", "/available/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**",
                                 "/swagger-resources/**", "/swagger-ui.html", "/webjars/**").permitAll()
                         .requestMatchers("/orderTest/**", "/sub/order/**","/pub/order/**","/ws-stomp/**", "/**").permitAll()
