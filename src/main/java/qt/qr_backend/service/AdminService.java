@@ -32,7 +32,7 @@ public class AdminService {
     // 승인
     @Transactional
     public void approveJoin(String storeId) {
-        Store store = storeRepository.findById(storeId);
+        Store store = storeRepository.findById(storeId).orElse(null);
         if (store == null) {
             throw new RuntimeException("Store not found");
         }
@@ -44,7 +44,7 @@ public class AdminService {
     // 거부
     @Transactional
     public void rejectJoin(String storeId) {
-        Store store = storeRepository.findById(storeId);
+        Store store = storeRepository.findById(storeId).orElse(null);
         if (store == null) {
             throw new RuntimeException("Store not found");
         }
