@@ -13,9 +13,6 @@ import qt.qr_backend.domain.Ceo;
 import qt.qr_backend.domain.Store;
 import qt.qr_backend.domain.enums.Approval;
 import qt.qr_backend.repository.CeoRepository;
-import qt.qr_backend.repository.StoreRepository;
-
-import java.util.List;
 
 @SpringBootTest
 @Transactional
@@ -54,9 +51,7 @@ class SignupServiceTest {
 
         // when
         Ceo findCeo = ceoRepository.findById(ceo.getId());
-        Store findStore = storeRepository.findById(store.getId()).orElseThrow();
-        List<Store> allStore = storeRepository.findAll();
-        System.out.println("allStore = " + allStore);
+        Store findStore = storeRepository.findById(store.getId());
 
         // then
         Assertions.assertThat(findCeo.getId()).isEqualTo(ceo.getId());
