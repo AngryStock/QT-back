@@ -22,6 +22,11 @@ public class Category {
     @Column(name = "category_name")
     private String name;
 
+    public Category(Store storeProxy, String s) {
+        this.store = storeProxy;
+        this.name = s;
+    }
+
     public void setId(String id) {
         this.id = id;
     }

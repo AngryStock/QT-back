@@ -13,7 +13,6 @@ import qt.qr_backend.domain.Ceo;
 import qt.qr_backend.domain.Store;
 import qt.qr_backend.domain.enums.Approval;
 import qt.qr_backend.repository.CeoRepository;
-import qt.qr_backend.repository.StoreRepository;
 
 @SpringBootTest
 @Transactional
@@ -38,7 +37,7 @@ class SignupServiceTest {
                 "1111122222");
 
         Ceo ceo = new Ceo(ceoRequest.getName(), ceoRequest.getMobileNumber(), ceoRequest.getLoginId(),
-                null, ceoRequest.getBank(), ceoRequest.getAccountNumber(),
+                "ROLE_USER", ceoRequest.getBank(), ceoRequest.getAccountNumber(),
                 ceoRequest.getEmail(), ceoRequest.getBusinessReportCertificateFileUrl(), ceoRequest.getBusinessRegistrationFileUrl(),
                 ceoRequest.getCopyOfBankbookFileUrl());
         ceo.encodePassword(passwordEncoder, ceoRequest.getPassword());

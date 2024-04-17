@@ -18,7 +18,6 @@ import javax.annotation.processing.Generated;
 @Table(name = "orders")
 public class Order {
     @Id
-
     @Column(name = "order_id")
     private String id;
 
@@ -30,6 +29,10 @@ public class Order {
 
     @Column(name = "order_status")
     private String status;
+
+    private String tableId;
+
+    private int orderPrice;
 
     public void setId(String id) {
         this.id = id;
@@ -45,5 +48,13 @@ public class Order {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public void setOrderPrice(int orderPrice) {
+        this.orderPrice = orderPrice;
+    }
+
+    public void setTableId(String tableId) {
+        this.tableId = tableId;
     }
 }

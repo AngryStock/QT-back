@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import qt.qr_backend.DTO.CategoryDTO;
 import qt.qr_backend.DTO.MenuDTO;
+import qt.qr_backend.controller.request.CategoryRequest;
 import qt.qr_backend.controller.response.CategoryResponse;
 import qt.qr_backend.service.CategoryService;
 
@@ -25,6 +26,10 @@ public class CategoryController {
     public ResponseEntity<CategoryDTO> categorySave(@RequestBody CategoryDTO categoryDTO){
         log.info("start save category");
         return ResponseEntity.ok(categoryService.saveCategory(categoryDTO));
+    }
+    @PostMapping("/add")
+    public ResponseEntity<List<CategoryDTO>> categoryAdd(@RequestBody CategoryRequest request){
+        return ResponseEntity.ok(categoryService.addCategory(request.getStoreId(), request.getValue()));
     }
 
     @PostMapping("/update")
@@ -51,12 +56,12 @@ public class CategoryController {
         return ResponseEntity.ok(categoryListByStoreId);
     }
 
-    @GetMapping("/findAll")
-    public ResponseEntity<List<CategoryDTO>> categoryFindAll(){
-        log.info("start findAll category");
-        List<CategoryDTO> allCategoryDTO = categoryService.findAllCategory();
-        return ResponseEntity.ok(allCategoryDTO);
-    }
+//    @GetMapping("/findAll")
+//    public ResponseEntity<List<CategoryDTO>> categoryFindAll(){
+//        log.info("start findAll category");
+//        List<CategoryDTO> allCategoryDTO = categoryService.findAllCategory();
+//        return ResponseEntity.ok(allCategoryDTO);
+//    }
 
 
 

@@ -12,6 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import qt.qr_backend.domain.Menu;
 import qt.qr_backend.domain.MenuOption;
+import qt.qr_backend.repository.OptionCategoryRepository;
 
 import java.util.List;
 
@@ -21,12 +22,13 @@ import java.util.List;
 @AllArgsConstructor
 public class MenuOptionDTO {
     private String id;
-    private MenuDTO menu;
+    private String optionCategoryId;
     private String name;
     private int price;
-    public MenuOption toMenuOption(){
+
+    public MenuOption toMenuOption(OptionCategoryRepository repository){
         return MenuOption.builder()
-                .menu(MenuDTO.fromMenuDTOtoMenu(menu))
+                .optionCategory(repository.getReferenceById(optionCategoryId))
                 .name(name)
                 .price(price)
                 .build();
@@ -34,15 +36,15 @@ public class MenuOptionDTO {
     public static MenuOptionDTO fromMenuOptiontoMenuOptionDTO(MenuOption menuOption){
         return MenuOptionDTO.builder()
                 .id(menuOption.getId())
-                .menu(MenuDTO.fromMenutoMenuDTO(menuOption.getMenu()))
+                .optionCategoryId(menuOption.getOptionCategory().getId())
                 .name(menuOption.getName())
                 .price(menuOption.getPrice())
                 .build();
     }
-    public static MenuOption fromMenuOptionDTOtoMenuOption(MenuOptionDTO menuOptionDTO){
+    public static MenuOption fromMenuOptionDTOtoMenuOption(MenuOptionDTO menuOptionDTO,OptionCategoryRepository repository){
         return MenuOption.builder()
                 .id(menuOptionDTO.id)
-                .menu(MenuDTO.fromMenuDTOtoMenu(menuOptionDTO.menu))
+                .optionCategory(repository.getReferenceById(menuOptionDTO.optionCategoryId))
                 .name(menuOptionDTO.name)
                 .price(menuOptionDTO.price)
                 .build();

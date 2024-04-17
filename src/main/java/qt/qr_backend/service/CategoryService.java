@@ -3,15 +3,13 @@ package qt.qr_backend.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 import qt.qr_backend.DTO.CategoryDTO;
-import qt.qr_backend.DTO.MenuDTO;
-import qt.qr_backend.DTO.MenuOptionDTO;
 import qt.qr_backend.domain.Category;
-import qt.qr_backend.domain.Menu;
-import qt.qr_backend.domain.MenuOption;
+import qt.qr_backend.domain.Store;
 import qt.qr_backend.repository.CategoryRepository;
+import qt.qr_backend.repository.StoreRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,17 +18,32 @@ import java.util.Optional;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final StoreRepository storeRepository;
 
     public CategoryDTO saveCategory(CategoryDTO categoryDTO){
-        Category category = categoryRepository.save(categoryDTO.toCategory());
+        Category category = categoryRepository.save(categoryDTO.toCategory(storeRepository));
         return CategoryDTO.fromCategorytoCategoryDTO(category);
+    }
+    public List<CategoryDTO> addCategory(String storeId, List<String> categories){
+        List<Category> list = new ArrayList<>();
+        Store storeProxy = storeRepository.getReferenceById(storeId);
+        for (String category : categories) {
+            list.add(new Category(storeProxy, category));
+        }
+        return CategoryDTO.listFromCategorytoCategoryDTO(categoryRepository.saveAll(list));
     }
 
     public CategoryDTO updateCategory(CategoryDTO categoryDTO){
-        categoryRepository.save(CategoryDTO.fromCategoryDTOtoCategory(categoryDTO));
-        Category category = categoryRepository.findNoProxyCategoryById(categoryDTO.getId());
-        return CategoryDTO.fromCategorytoCategoryDTO(category);
+        Optional<Category> targetCategory = categoryRepository.findById(categoryDTO.getId());
+        if (targetCategory.isPresent()){
+            if (categoryDTO.getName()!=null){
+                targetCategory.get().setName(categoryDTO.getName());
+            }
+        }
+        Category savedCategory = categoryRepository.save(targetCategory.get());
+        return CategoryDTO.fromCategorytoCategoryDTO(savedCategory);
     }
+
 
     public void deleteCategory(String id){
         categoryRepository.deleteById(id);
@@ -49,9 +62,9 @@ public class CategoryService {
         List<Category> findedCategoryByStoreId = categoryRepository.findByStore_Id(id);
         return CategoryDTO.listFromCategorytoCategoryDTO(findedCategoryByStoreId);
     }
-    public List<CategoryDTO> findAllCategory(){
-        List<Category> findAllCategory = categoryRepository.findAll();
-        return CategoryDTO.listFromCategorytoCategoryDTO(findAllCategory);
-    }
+//    public List<CategoryDTO> findAllCategory(){
+//        List<Category> findAllCategory = categoryRepository.findAll();
+//        return CategoryDTO.listFromCategorytoCategoryDTO(findAllCategory);
+//    }
 
 }
