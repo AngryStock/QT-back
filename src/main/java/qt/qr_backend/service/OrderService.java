@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import qt.qr_backend.DTO.OrderDTO;
 import qt.qr_backend.domain.Order;
 import qt.qr_backend.repository.OrderRepository;
+import qt.qr_backend.repository.StoreRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,16 +18,35 @@ import java.util.Optional;
 public class OrderService {
 
     private final OrderRepository orderRepository;
+    private final StoreRepository storeRepository;
 
     public OrderDTO saveOrder(OrderDTO orderDTO){
-        Order order = orderRepository.save(orderDTO.toOrder());
+        Order order = orderRepository.save(orderDTO.toOrder(storeRepository));
         return OrderDTO.fromOrdertoOrderDTO(order);
     }
 
     public OrderDTO updateOrder(OrderDTO orderDTO){
-        orderRepository.save(OrderDTO.fromOrderDTOtoOrder(orderDTO));
-        Order order = orderRepository.findNoProxyOrderById(orderDTO.getId());
-        return OrderDTO.fromOrdertoOrderDTO(order);
+        Optional<Order> targetOrder = orderRepository.findById(orderDTO.getId());
+        if (targetOrder.isPresent()){
+            if (orderDTO.getOrderPrice()!=targetOrder.get().getOrderPrice()){
+                targetOrder.get().setOrderPrice(orderDTO.getOrderPrice());
+            }
+            if (orderDTO.getStatus()!=targetOrder.get().getStatus()){
+                targetOrder.get().setStatus(orderDTO.getStatus());
+            }
+        }
+        Order savedOrder = orderRepository.save(targetOrder.get());
+        return OrderDTO.fromOrdertoOrderDTO(savedOrder);
+    }
+    public OrderDTO changeOrderStatus(String orderId,String status){
+        Optional<Order> targetOrder = orderRepository.findById(orderId);
+        if (targetOrder.isPresent()){
+            if (targetOrder.get().getStatus()!=status){
+                targetOrder.get().setStatus(status);
+            }
+        }
+        Order savedOrder = orderRepository.save(targetOrder.get());
+        return OrderDTO.fromOrdertoOrderDTO(savedOrder);
     }
 
     public void deleteOrder(String id){

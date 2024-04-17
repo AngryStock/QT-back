@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderMenuRequest {
-    private MenuDTO menu;
+    private String menuId;
     private int orderMenuPrice;
     private List<OrderMenuOptionDTO> orderMenuOptionDTOList;
 

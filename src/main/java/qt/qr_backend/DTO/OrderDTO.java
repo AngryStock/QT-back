@@ -2,16 +2,12 @@ package qt.qr_backend.DTO;
 
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import qt.qr_backend.domain.Order;
-import qt.qr_backend.domain.Store;
+import qt.qr_backend.repository.StoreRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,16 +18,16 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderDTO {
     private String id;
-    private StoreDTO store;
+    private String storeId;
     private LocalDateTime orderDate;
     private String status;
     private int orderPrice;
     private String tableId;
 
 
-    public Order toOrder(){
+    public Order toOrder(StoreRepository repository){
         return Order.builder()
-                .store(StoreDTO.fromStoreDTOtoStore(store))
+                .store(repository.getReferenceById(storeId))
                 .orderDate(orderDate)
                 .status(status)
                 .orderPrice(orderPrice)
@@ -39,21 +35,21 @@ public class OrderDTO {
                 .build();
     }
 
-    public static Order fromOrderDTOtoOrder(OrderDTO orderDTO){
-        return Order.builder()
-                .id(orderDTO.id)
-                .store(StoreDTO.fromStoreDTOtoStore(orderDTO.store))
-                .orderDate(orderDTO.orderDate)
-                .status(orderDTO.status)
-                .orderPrice(orderDTO.orderPrice)
-                .tableId(orderDTO.tableId)
-                .build();
-    }
+//    public static Order fromOrderDTOtoOrder(OrderDTO orderDTO){
+//        return Order.builder()
+//                .id(orderDTO.id)
+//                .store(StoreDTO.fromStoreDTOtoStore(orderDTO.store))
+//                .orderDate(orderDTO.orderDate)
+//                .status(orderDTO.status)
+//                .orderPrice(orderDTO.orderPrice)
+//                .tableId(orderDTO.tableId)
+//                .build();
+//    }
 
     public static OrderDTO fromOrdertoOrderDTO(Order order){
         return OrderDTO.builder()
                 .id(order.getId())
-                .store(StoreDTO.fromStoretoStoreDTO(order.getStore()))
+                .storeId(order.getStore().getId())
                 .orderDate(order.getOrderDate())
                 .status(order.getStatus())
                 .orderPrice(order.getOrderPrice())

@@ -5,7 +5,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import qt.qr_backend.DTO.CategoryDTO;
 import qt.qr_backend.DTO.OptionCategoryDTO;
+import qt.qr_backend.controller.request.CategoryRequest;
+import qt.qr_backend.controller.request.OptionCategoryRequest;
 import qt.qr_backend.controller.response.OptionCategoryResponse;
 import qt.qr_backend.service.OptionCategoryService;
 
@@ -24,6 +27,11 @@ public class OptionCategoryController {
     public ResponseEntity<OptionCategoryDTO> optionCategorySave(@RequestBody OptionCategoryDTO optionCategoryDTO){
         log.info("start save optionCategory");
         return ResponseEntity.ok(optionCategoryService.saveOptionCategory(optionCategoryDTO));
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<List<OptionCategoryDTO>> categoryAdd(@RequestBody OptionCategoryRequest request){
+        return ResponseEntity.ok(optionCategoryService.addOptionCategory(request.getMenuId(), request.getValue()));
     }
 
     @PostMapping("/update")
@@ -50,12 +58,12 @@ public class OptionCategoryController {
         return ResponseEntity.ok(optionCategoryListByStoreId);
     }
 
-    @GetMapping("/findAll")
-    public ResponseEntity<List<OptionCategoryDTO>> optionCategoryFindAll(){
-        log.info("start findAll optionCategory");
-        List<OptionCategoryDTO> allOptionCategoryDTO = optionCategoryService.findAllOptionCategory();
-        return ResponseEntity.ok(allOptionCategoryDTO);
-    }
+//    @GetMapping("/findAll")
+//    public ResponseEntity<List<OptionCategoryDTO>> optionCategoryFindAll(){
+//        log.info("start findAll optionCategory");
+//        List<OptionCategoryDTO> allOptionCategoryDTO = optionCategoryService.findAllOptionCategory();
+//        return ResponseEntity.ok(allOptionCategoryDTO);
+//    }
 
 
 
