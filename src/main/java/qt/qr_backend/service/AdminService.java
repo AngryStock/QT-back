@@ -39,6 +39,13 @@ public class AdminService {
 
         store.setApproval(Approval.APPROVE);
         storeRepository.save(store);
+
+        // 승인 이메일 발송
+        String to = store.getCeo().getEmail();
+        String subject = "회원가입 승인 안내";
+        String contact = "문의 전회번호: 000-0000-0000, 이메일: qrtabler@gmail.com";
+
+        emailService.sendApproveMail(to, subject, contact);
     }
 
     // 거부

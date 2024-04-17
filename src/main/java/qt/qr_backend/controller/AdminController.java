@@ -20,20 +20,23 @@ public class AdminController {
     // 회원가입 정보 조회
     @GetMapping("/joinInfos")
     public ResponseEntity<List<AdminViewDTO>> listAllJoinInfos() {
+        log.info("Listing all join infos");
         List<AdminViewDTO> joinInfos = adminService.listAllJoinInfos();
         return ResponseEntity.ok(joinInfos);
     }
 
     // 승인
-    @PostMapping("/approve/{storeId}")
-    public ResponseEntity<?> approveJoin(@PathVariable String storeId) {
+    @PostMapping("/approve/{id}")
+    public ResponseEntity<?> approveJoin(@PathVariable("id") String storeId) {
+        log.info("Approving join for storeId: {}", storeId);
         adminService.approveJoin(storeId);
         return ResponseEntity.ok().build();
     }
 
     // 거부
-    @PostMapping("/reject/{storeId}")
-    public ResponseEntity<?> rejectJoin(@PathVariable String storeId) {
+    @PostMapping("/reject/{id}")
+    public ResponseEntity<?> rejectJoin(@PathVariable("id") String storeId) {
+        log.info("Rejecting join for storeId: {}", storeId);
         adminService.rejectJoin(storeId);
         return ResponseEntity.ok().build();
     }
