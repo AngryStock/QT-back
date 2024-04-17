@@ -50,106 +50,31 @@
   var sock = new SockJS("/ws-stomp");
   var ws = Stomp.over(sock);
   var reconnect = 0;
-  var json = [{
-    "OrderDTO":{
-      "id":"",
-      "StoreDTO":{},
-      "orderDate":"",
-      status:""
-    },
-    "menuDTO":{
-      "id": "222edbb0-e166-4dc8-93e2-7ffe70c6b3d2",
-      "category": {
-        "id": "b13c8194-52b8-4589-adb0-76d16f4afb32",
-        "store": {
-          "id": "1",
-          "ceo": {
-            "id": "1",
-            "name": "testName",
-            "mobileNumber": "000-0000-0000",
-            "loginId": "testLogin",
-            "password": "testPassword",
-            "accountNumber": "000-00-000000",
-            "email": "test@gmail.com",
-            "bank": "degu",
-            "admin": true
-          },
-          "name": "testStoreName",
-          "phoneNumber": "000-0000-0000",
-          "mainAddress": "mainaddress",
-          "detailAddress": "detailaddress",
-          "businessNumber": "11",
-          "tableCount": 5,
-          "approval": "APPROVE"
-        },
-        "name": "categoryTestName"
-      },
-      "name": "testingMenuName",
-      "price": 50000,
-      "description": "testing description"
-    },
-    "orderPrice": 100000,
-    "count": 2
-  },{
-    "OrderDTO":{},
-    "menuDTO":{
-      "id": "b00261c7-c7c3-4007-b73b-515b7199cffc",
-      "category": {
-        "id": "b13c8194-52b8-4589-adb0-76d16f4afb32",
-        "store": {
-          "id": "1",
-          "ceo": {
-            "id": "1",
-            "name": "testName",
-            "mobileNumber": "000-0000-0000",
-            "loginId": "testLogin",
-            "password": "testPassword",
-            "accountNumber": "000-00-000000",
-            "email": "test@gmail.com",
-            "bank": "degu",
-            "admin": true
-          },
-          "name": "testStoreName",
-          "phoneNumber": "000-0000-0000",
-          "mainAddress": "mainaddress",
-          "detailAddress": "detailaddress",
-          "businessNumber": "11",
-          "tableCount": 5,
-          "approval": "APPROVE"
-        },
-        "name": "categoryTestName"
-      },
-      "name": "testingMenuName",
-      "price": 50000,
-      "description": "testing description"
-    },
-    "orderPrice": 150000,
-    "count": 3
+  var orderAcceptJson = {
+    "status":"ACCEPT",
+    "orderId":"2068ce75-022d-4013-87fc-b425ac91be81",
+    "tableId":"2",
+    "orderMenuDTOList":[
+      {
+        "id":"",
+        "orderId":"",
+        "menuId":"",
+        "orderMenuPrice":1230
+      }
+    ]
   }
-
-  ]
+  var json = {}
   // vue.js
   var vm = new Vue({
     el: '#app',
     data: {
-      storeId: "1",//test데이터라 1임 uuid가 들어가고, 로그인을 할시 가지고 있을 storeid
-      // room: {},
-      // sender: '',
-      // message: '',
-      // messages: []
+      storeId: "9d85fa11-e525-4da2-836c-b6e612ebe436",//test데이터라 1임 uuid가 들어가고, 로그인을 할시 가지고 있을 storeid
     },
-// created() {
-//     this.roomId = localStorage.getItem('wschat.roomId');
-//     // this.roomId = this.room.roomId;
-//     this.sender = localStorage.getItem('wschat.sender');
-//     this.findRoom();
-// },
     methods: {
       sendMessage: function() {
         console.log("this is sendMessage json",json);
-        var OXmessage = "ACCEPT"
-        ws.send("/pub/order/orderOXmessage/"+OXmessage, {},
-                JSON.stringify(json));
+        ws.send("/pub/order/storeMessage", {},
+                JSON.stringify(orderAcceptJson));
       },
       recvMessage: function(recv) {
         console.log(recv)

@@ -2,14 +2,12 @@ package qt.qr_backend.DTO;
 
 
 
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import qt.qr_backend.domain.Category;
 import qt.qr_backend.domain.Menu;
-import qt.qr_backend.domain.Menu;
+import qt.qr_backend.repository.CategoryRepository;
 
 import java.util.List;
 
@@ -19,35 +17,39 @@ import java.util.List;
 @AllArgsConstructor
 public class MenuDTO {
     private String id;
-    private CategoryDTO category;
+    private String categoryId;
     private String name;
     private int price;
     private String description;
+    private String menuImageUrl;
 
-    public Menu toMenu(){
+    public Menu toMenu(CategoryRepository repository){
         return Menu.builder()
-                .category(CategoryDTO.fromCategoryDTOtoCategory(category))
+                .category(repository.getReferenceById(categoryId))
                 .name(name)
                 .price(price)
                 .description(description)
+                .menuImageUrl(menuImageUrl)
                 .build();
     }
-    public static Menu fromMenuDTOtoMenu(MenuDTO menuDTO){
+    public static Menu fromMenuDTOtoMenu(MenuDTO menuDTO,CategoryRepository repository){
         return Menu.builder()
                 .id(menuDTO.id)
-                .category(CategoryDTO.fromCategoryDTOtoCategory(menuDTO.category))
+                .category(repository.getReferenceById(menuDTO.categoryId))
                 .name(menuDTO.name)
                 .price(menuDTO.price)
                 .description(menuDTO.description)
+                .menuImageUrl(menuDTO.menuImageUrl)
                 .build();
     }
     public static MenuDTO fromMenutoMenuDTO(Menu menu){
         return MenuDTO.builder()
                 .id(menu.getId())
-                .category(CategoryDTO.fromCategorytoCategoryDTO(menu.getCategory()))
+                .categoryId(menu.getCategory().getId())
                 .name(menu.getName())
                 .price(menu.getPrice())
                 .description(menu.getDescription())
+                .menuImageUrl(menu.getMenuImageUrl())
                 .build();
     }
     public static List<MenuDTO> listFromMenutoMenuDTO(List<Menu> list){

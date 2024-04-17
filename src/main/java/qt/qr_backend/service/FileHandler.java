@@ -57,7 +57,7 @@ public class FileHandler {
             file = new File(absolutePath + path + fileSeparator + new_file_name);
             multipartFile.transferTo(file);
 
-            return file.getPath();
+            return current_date + fileSeparator + new_file_name;
         }
 
         return null;

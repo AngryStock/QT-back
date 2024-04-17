@@ -29,7 +29,12 @@
         <div class="input-group-append">
             <button class="btn btn-primary" type="button" @click="sendMessage">주문 하기</button>
         </div>
-
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="button" @click="vm.sendOrderInfo()">정보 보내기</button>
+        </div>
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="button" @click="connect">주문을 위해 사장과 연결하기</button>
+        </div>
         <div class="input-group-append">
             <button class="btn btn-primary" type="button" @click="disconnectRoom">퇴장</button>
         </div>
@@ -47,109 +52,62 @@
     var sock = new SockJS("/ws-stomp");
     var ws = Stomp.over(sock);
     var reconnect = 0;
-    var json = [{
-        "OrderDTO":{},
-        "menuDTO":{
-            "id": "222edbb0-e166-4dc8-93e2-7ffe70c6b3d2",
-            "category": {
-                "id": "b13c8194-52b8-4589-adb0-76d16f4afb32",
-                "store": {
-                    "id": "1",
-                    "ceo": {
-                        "id": "1",
-                        "name": "testName",
-                        "mobileNumber": "000-0000-0000",
-                        "loginId": "testLogin",
-                        "password": "testPassword",
-                        "accountNumber": "000-00-000000",
-                        "email": "test@gmail.com",
-                        "bank": "degu",
-                        "admin": true
-                    },
-                    "name": "testStoreName",
-                    "phoneNumber": "000-0000-0000",
-                    "mainAddress": "mainaddress",
-                    "detailAddress": "detailaddress",
-                    "businessNumber": "11",
-                    "tableCount": 5,
-                    "approval": "APPROVE"
-                },
-                "name": "categoryTestName"
+    var json =
+{
+    "tableId":"2",
+    "orderId":"2068ce75-022d-4013-87fc-b425ac91be81",
+    "storeId":"9d85fa11-e525-4da2-836c-b6e612ebe436",
+    "list":[{
+        "menuId": "03c0cef9-95d6-4781-871c-30074879e12b",
+        "orderMenuPrice": 100000,
+        "orderMenuOptionDTOList": [
+            {
+                "menuOptionId": "36fd00e3-f7c2-42e3-8f40-193b7d9808c6"
             },
-            "name": "testingMenuName",
-            "price": 50000,
-            "description": "testing description"
-        },
-        "orderPrice": 100000,
-        "count": 2
-    },{
-        "OrderDTO":{},
-        "menuDTO":{
-            "id": "b00261c7-c7c3-4007-b73b-515b7199cffc",
-            "category": {
-                "id": "b13c8194-52b8-4589-adb0-76d16f4afb32",
-                "store": {
-                    "id": "1",
-                    "ceo": {
-                        "id": "1",
-                        "name": "testName",
-                        "mobileNumber": "000-0000-0000",
-                        "loginId": "testLogin",
-                        "password": "testPassword",
-                        "accountNumber": "000-00-000000",
-                        "email": "test@gmail.com",
-                        "bank": "degu",
-                        "admin": true
-                    },
-                    "name": "testStoreName",
-                    "phoneNumber": "000-0000-0000",
-                    "mainAddress": "mainaddress",
-                    "detailAddress": "detailaddress",
-                    "businessNumber": "11",
-                    "tableCount": 5,
-                    "approval": "APPROVE"
-                },
-                "name": "categoryTestName"
+            {
+                "menuOptionId": "e8c9bd0c-eb09-4c91-bd40-1a61459d0625"
+            }
+        ]
+    },
+    {
+        "menuId": "f21b6a6d-b4bd-4035-a52a-cf7e74744671",
+        "orderMenuPrice": 200000,
+        "orderMenuOptionDTOList": [
+            {
+                "menuOptionId": "6136180d-c4fd-45b6-b0bb-85dee788291a"
             },
-            "name": "testingMenuName",
-            "price": 50000,
-            "description": "testing description"
-        },
-        "orderPrice": 150000,
-        "count": 3
+            {
+                "menuOptionId": "dbd50a71-84d8-434d-b4e0-643036b9c7e7"
+            }
+        ]
+    }]
+}
+    var testJson = {
+        "test":"test message for order info exchange"
     }
-
-    ]
     // vue.js
     var vm = new Vue({
         el: '#app',
         data: {
             orderId: "2068ce75-022d-4013-87fc-b425ac91be81",
-            // room: {},
-            // sender: '',
-            // message: '',
-            // messages: []
-        },
-// created() {
-//     this.roomId = localStorage.getItem('wschat.roomId');
-//     // this.roomId = this.room.roomId;
-//     this.sender = localStorage.getItem('wschat.sender');
-//     this.findRoom();
-// },
+            tableId: ["1","2"]
+            },
         methods: {
             sendMessage: function() {
                 //고객 측에서 random uuid 하나를 생성하여 send
                 var uuid = "2068ce75-022d-4013-87fc-b425ac91be81"
-                ws.send("/pub/order/message/"+uuid, {},
+                ws.send("/pub/order/message", {},
                     JSON.stringify(json));
+            },
+            sendOrderInfo: function (){
+                ws.send("/pub/order/table/"+vm.$data.tableId[0], {},
+                    JSON.stringify(testJson));
             },
             recvMessage: function(recv) {
                 console.log(recv)
             },
             disconnectRoom: function () {
-                //ws.send("/pub/order/message", {}, JSON.stringify({type:'LEAVE', roomId:this.roomId, sender:this.sender, message:this.sender+"님이 퇴장하셨습니다."}));
                 ws.disconnect()
-                //location.href="/room"
             }
         }
     });
@@ -173,7 +131,26 @@
             }
         });
     }
-    connect();
+    function connect2() {
+        // pub/sub event
+        ws.connect({}, function(frame) {
+            ws.subscribe("/sub/order/table/"+vm.$data.tableId[1], function(message) {
+                var recv = JSON.parse(message.body);
+                vm.recvMessage(recv);
+            });
+        }, function(error) {
+            if(reconnect++ <= 5) {
+                setTimeout(function() {
+                    console.log("connection reconnect");
+                    sock = new SockJS("/ws-stomp");
+                    ws = Stomp.over(sock);
+                    connect();
+                },10*1000);
+            }
+        });
+    }
+    //connect();
+    connect2();
 </script>
 </body>
 </html>

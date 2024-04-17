@@ -17,6 +17,4 @@ public interface OrderRepository extends JpaRepository<Order,String> {
 
     @Query("select o from Order o join fetch o.store s join fetch s.ceo c where o.id= :orderId")
     Order findNoProxyOrderById(String orderId);
-
-
 }

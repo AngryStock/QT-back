@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import qt.qr_backend.domain.Category;
+import qt.qr_backend.repository.StoreRepository;
+
 import java.util.List;
 
 @Data
@@ -13,20 +15,20 @@ import java.util.List;
 @AllArgsConstructor
 public class CategoryDTO {
     private String id;
-    private StoreDTO store;
+    private String storeId;
     private String name;
 
-    public Category toCategory(){
+    public Category toCategory(StoreRepository repository){
         return Category.builder()
-                .store(StoreDTO.fromStoreDTOtoStore(store))
+                .store(repository.getReferenceById(storeId))
                 .name(name)
                 .build();
     }
 
-    public static Category fromCategoryDTOtoCategory(CategoryDTO categoryDTO){
+    public static Category fromCategoryDTOtoCategory(CategoryDTO categoryDTO, StoreRepository storeRepository){
         return Category.builder()
                 .id(categoryDTO.id)
-                .store(StoreDTO.fromStoreDTOtoStore(categoryDTO.store))
+                .store(storeRepository.getReferenceById(categoryDTO.storeId))
                 .name(categoryDTO.name)
                 .build();
     }
@@ -34,7 +36,7 @@ public class CategoryDTO {
     public static CategoryDTO fromCategorytoCategoryDTO(Category category){
         return CategoryDTO.builder()
                 .id(category.getId())
-                .store(StoreDTO.fromStoretoStoreDTO(category.getStore()))
+                .storeId(category.getStore().getId())
                 .name(category.getName())
                 .build();
     }
