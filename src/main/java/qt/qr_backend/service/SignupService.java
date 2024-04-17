@@ -53,6 +53,16 @@ public class SignupService {
         }
     }
 
+    public String validateDuplicateLoginIdV2(String loginId) {
+        boolean existLoginId = ceoRepository.findByLoginId(loginId)
+                .stream().findAny().isPresent();
+        if (existLoginId) {
+            return "이미 존재하는 아이디입니다.";
+        } else {
+            return "사용 가능한 아이디입니다.";
+        }
+    }
+
     private void validateDuplicateBusinessNumber(String businessNumber) {
         boolean existBusinessNumber = storeRepository.findByBusinessNumber(businessNumber)
                 .stream().findAny().isPresent();
