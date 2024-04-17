@@ -1,18 +1,19 @@
 package qt.qr_backend.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
+import lombok.*;
+
+@Getter
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Category {
-    @Id @GeneratedValue
+
+    @Id @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "category_id")
-    private Long id;
+    private String id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
@@ -20,4 +21,21 @@ public class Category {
 
     @Column(name = "category_name")
     private String name;
+
+    public Category(Store storeProxy, String s) {
+        this.store = storeProxy;
+        this.name = s;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
