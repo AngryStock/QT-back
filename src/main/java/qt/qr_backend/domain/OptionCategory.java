@@ -25,6 +25,16 @@ public class OptionCategory {
     @Column(name = "option_category_name")
     private String name;
 
+    private boolean essential;
+    private boolean only;
+
+    public OptionCategory(Menu menuProxy, String optionCategory) {
+        this.menu = menuProxy;
+        this.name = optionCategory;
+        this.essential = false;
+        this.only = false;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -35,5 +45,13 @@ public class OptionCategory {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setEssential(boolean essential) {
+        this.essential = essential;
+    }
+
+    public void setOnly(boolean only) {
+        this.only = only;
     }
 }

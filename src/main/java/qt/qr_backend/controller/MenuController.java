@@ -72,12 +72,12 @@ public class MenuController {
         return ResponseEntity.ok(menuListByCategoryId);
     }
 
-    @GetMapping("/findAll")
-    public ResponseEntity<List<MenuDTO>> menuFindAll(){
-        log.info("start findAll menu");
-        List<MenuDTO> allMenuDTO = menuService.findAllMenu();
-        return ResponseEntity.ok(allMenuDTO);
-    }
+//    @GetMapping("/findAll")
+//    public ResponseEntity<List<MenuDTO>> menuFindAll(){
+//        log.info("start findAll menu");
+//        List<MenuDTO> allMenuDTO = menuService.findAllMenu();
+//        return ResponseEntity.ok(allMenuDTO);
+//    }
 
 
 

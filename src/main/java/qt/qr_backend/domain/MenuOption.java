@@ -29,7 +29,11 @@ public class MenuOption {
     @Column(name = "option_price")
     private int price;
 
-    private String menuOptionImageUrl;
+    public MenuOption(OptionCategory optionCategoryProxy, String menuOption) {
+        this.optionCategory = optionCategoryProxy;
+        this.name = menuOption;
+        this.price = 0;
+    }
 
     public void setId(String id) {
         this.id = id;

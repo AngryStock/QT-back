@@ -12,6 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import qt.qr_backend.domain.Menu;
 import qt.qr_backend.domain.MenuOption;
+import qt.qr_backend.repository.OptionCategoryRepository;
 
 import java.util.List;
 
@@ -21,35 +22,31 @@ import java.util.List;
 @AllArgsConstructor
 public class MenuOptionDTO {
     private String id;
-    private OptionCategoryDTO optionCategory;
+    private String optionCategoryId;
     private String name;
     private int price;
-    private String menuOptionImageUrl;
 
-    public MenuOption toMenuOption(){
+    public MenuOption toMenuOption(OptionCategoryRepository repository){
         return MenuOption.builder()
-                .optionCategory(OptionCategoryDTO.fromOptionCategoryDTOtoOptionCategory(optionCategory))
+                .optionCategory(repository.getReferenceById(optionCategoryId))
                 .name(name)
                 .price(price)
-                .menuOptionImageUrl(menuOptionImageUrl)
                 .build();
     }
     public static MenuOptionDTO fromMenuOptiontoMenuOptionDTO(MenuOption menuOption){
         return MenuOptionDTO.builder()
                 .id(menuOption.getId())
-                .optionCategory(OptionCategoryDTO.fromOptionCategorytoOptionCategoryDTO(menuOption.getOptionCategory()))
+                .optionCategoryId(menuOption.getOptionCategory().getId())
                 .name(menuOption.getName())
                 .price(menuOption.getPrice())
-                .menuOptionImageUrl(menuOption.getMenuOptionImageUrl())
                 .build();
     }
-    public static MenuOption fromMenuOptionDTOtoMenuOption(MenuOptionDTO menuOptionDTO){
+    public static MenuOption fromMenuOptionDTOtoMenuOption(MenuOptionDTO menuOptionDTO,OptionCategoryRepository repository){
         return MenuOption.builder()
                 .id(menuOptionDTO.id)
-                .optionCategory(OptionCategoryDTO.fromOptionCategoryDTOtoOptionCategory(menuOptionDTO.optionCategory))
+                .optionCategory(repository.getReferenceById(menuOptionDTO.optionCategoryId))
                 .name(menuOptionDTO.name)
                 .price(menuOptionDTO.price)
-                .menuOptionImageUrl(menuOptionDTO.menuOptionImageUrl)
                 .build();
     }
     public static List<MenuOptionDTO> listFromMenuOptionToMenuOptionDTO(List<MenuOption> list){

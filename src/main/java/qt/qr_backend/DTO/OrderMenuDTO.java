@@ -11,6 +11,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import qt.qr_backend.domain.Menu;
 import qt.qr_backend.domain.OrderMenu;
+import qt.qr_backend.repository.MenuRepository;
+import qt.qr_backend.repository.OrderRepository;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -22,43 +24,43 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderMenuDTO {
     private String id;
-    private OrderDTO order;
-    private MenuDTO menu;
+    private String orderId;
+    private String menuId;
     private int orderMenuPrice;
 
-    public OrderMenuDTO(OrderDTO order,MenuDTO menu, int orderMenuPrice) {
-        this.order = order;
-        this.menu = menu;
+    public OrderMenuDTO(String orderId,String menuId, int orderMenuPrice) {
+        this.orderId = orderId;
+        this.menuId = menuId;
         this.orderMenuPrice = orderMenuPrice;
     }
 
     public OrderMenuDTO setOrderDTOMap(OrderDTO order,OrderMenuDTO orderMenuDTO) {
-        orderMenuDTO.setOrder(order);
+        orderMenuDTO.setOrderId(order.getId());
         return orderMenuDTO;
     }
 
-    public OrderMenu toOrderMenu(){
+    public OrderMenu toOrderMenu(OrderRepository orderRepository, MenuRepository menuRepository){
         return OrderMenu.builder()
-                .order(OrderDTO.fromOrderDTOtoOrder(order))
-                .menu(MenuDTO.fromMenuDTOtoMenu(menu))
+                .order(orderRepository.getReferenceById(orderId))
+                .menu(menuRepository.getReferenceById(menuId))
                 .orderMenuPrice(orderMenuPrice)
                 .build();
     }
 
-    public static OrderMenu fromOrderMenuDTOtoOrderMenu(OrderMenuDTO orderMenuDTO){
-        return OrderMenu.builder()
-                .id(orderMenuDTO.id)
-                .order(OrderDTO.fromOrderDTOtoOrder(orderMenuDTO.order))
-                .menu(MenuDTO.fromMenuDTOtoMenu(orderMenuDTO.menu))
-                .orderMenuPrice(orderMenuDTO.orderMenuPrice)
-                .build();
-    }
+//    public static OrderMenu fromOrderMenuDTOtoOrderMenu(OrderMenuDTO orderMenuDTO){
+//        return OrderMenu.builder()
+//                .id(orderMenuDTO.id)
+//                .order(OrderDTO.fromOrderDTOtoOrder(orderMenuDTO.order))
+//                .menu(MenuDTO.fromMenuDTOtoMenu(orderMenuDTO.menu))
+//                .orderMenuPrice(orderMenuDTO.orderMenuPrice)
+//                .build();
+//    }
 
     public static OrderMenuDTO fromOrderMenutoOrderMenuDTO(OrderMenu orderMenu){
         return OrderMenuDTO.builder()
                 .id(orderMenu.getId())
-                .order(OrderDTO.fromOrdertoOrderDTO(orderMenu.getOrder()))
-                .menu(MenuDTO.fromMenutoMenuDTO(orderMenu.getMenu()))
+                .orderId(orderMenu.getOrder().getId())
+                .menuId(orderMenu.getMenu().getId())
                 .orderMenuPrice(orderMenu.getOrderMenuPrice())
                 .build();
     }
@@ -67,10 +69,10 @@ public class OrderMenuDTO {
                 .map(OrderMenuDTO::fromOrderMenutoOrderMenuDTO)
                 .toList();
     }
-    public static List<OrderMenu> listFromOrderMenuDTOtoOrderMenu(List<OrderMenuDTO> list){
-        return list.stream()
-                .map(OrderMenuDTO::fromOrderMenuDTOtoOrderMenu)
-                .toList();
-    }
+//    public static List<OrderMenu> listFromOrderMenuDTOtoOrderMenu(List<OrderMenuDTO> list){
+//        return list.stream()
+//                .map(OrderMenuDTO::fromOrderMenuDTOtoOrderMenu)
+//                .toList();
+//    }
 
 }

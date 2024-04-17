@@ -1,27 +1,21 @@
 package qt.qr_backend.repository;
 
-import jakarta.persistence.EntityManager;
-import java.util.List;
-import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import qt.qr_backend.domain.Category;
 import qt.qr_backend.domain.Store;
 
+import java.util.List;
+
+
 @Repository
-@RequiredArgsConstructor
-public class StoreRepository {
-    private final EntityManager em;
 
-    public void save(Store store) {
-        em.persist(store);
-    }
+public interface StoreRepository extends JpaRepository<Store,String> {
+    List<Store> findByCeo_Id(String ceoId);
 
-    public Store findById(String id) {
-        return em.find(Store.class, id);
-    }
+    @Query("select c from Category c join fetch c.store s join fetch s.ceo ce where c.id= :categoryId")
+    Category findNoProxyCategoryById(String categoryId);
 
-    public List<Store> findByBusinessNumber(String businessNumber) {
-        return em.createQuery("select s from Store s where s.businessNumber = :businessNumber", Store.class)
-                .setParameter("businessNumber", businessNumber)
-                .getResultList();
-    }
+    List<Store> findByBusinessNumber(String businessNumber);
 }

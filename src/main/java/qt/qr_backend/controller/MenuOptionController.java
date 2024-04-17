@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import qt.qr_backend.DTO.MenuDTO;
 import qt.qr_backend.DTO.MenuOptionDTO;
+import qt.qr_backend.DTO.OptionCategoryDTO;
+import qt.qr_backend.controller.request.MenuOptionRequest;
+import qt.qr_backend.controller.request.OptionCategoryRequest;
 import qt.qr_backend.controller.response.MenuImageUrlResponse;
 import qt.qr_backend.controller.response.MenuOptionImageUrlResponse;
 import qt.qr_backend.controller.response.MenuOptionResponse;
@@ -27,7 +30,6 @@ import java.util.List;
 public class MenuOptionController {
 
     private final MenuOptionService menuOptionService;
-    private final FileHandler fileHandler;
 
     @PostMapping("/save")
     public ResponseEntity<MenuOptionDTO> menuOptionSave(@RequestBody MenuOptionDTO menuOptionDTO){
@@ -35,17 +37,9 @@ public class MenuOptionController {
         return ResponseEntity.ok(menuOptionService.saveMenuOption(menuOptionDTO));
     }
 
-    @PostMapping("/menuOptionImages")
-    public ResponseEntity<Object> saveMenuOptionImages(
-            @RequestParam MultipartFile menuOptionImageFile) throws IOException {
-        String menuOptionImageFileUrl = fileHandler.parseFileInfo(menuOptionImageFile);
-        if(menuOptionImageFileUrl == null) {
-            ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND.value(), "파일을 첨부하지 않았습니다");
-            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
-        }
-        log.info("menuOptionImageFileUrl = {}", menuOptionImageFileUrl);
-        MenuOptionImageUrlResponse menuOptionImageUrlResponse = new MenuOptionImageUrlResponse(menuOptionImageFileUrl);
-        return new ResponseEntity<>(menuOptionImageUrlResponse, HttpStatus.OK);
+    @PostMapping("/add")
+    public ResponseEntity<List<MenuOptionDTO>> menuOptionAdd(@RequestBody MenuOptionRequest request){
+        return ResponseEntity.ok(menuOptionService.addMenuOption(request.getOptionCategoryId(), request.getValue()));
     }
 
     @PostMapping("/update")
@@ -72,12 +66,12 @@ public class MenuOptionController {
         return ResponseEntity.ok(menuOptionListByMenuId);
     }
 
-    @GetMapping("/findAll")
-    public ResponseEntity<List<MenuOptionDTO>> menuOptionFindAll(){
-        log.info("start findAll menuOption");
-        List<MenuOptionDTO> allMenuOptionDTO = menuOptionService.findAllMenuOption();
-        return ResponseEntity.ok(allMenuOptionDTO);
-    }
+//    @GetMapping("/findAll")
+//    public ResponseEntity<List<MenuOptionDTO>> menuOptionFindAll(){
+//        log.info("start findAll menuOption");
+//        List<MenuOptionDTO> allMenuOptionDTO = menuOptionService.findAllMenuOption();
+//        return ResponseEntity.ok(allMenuOptionDTO);
+//    }
 
 
 

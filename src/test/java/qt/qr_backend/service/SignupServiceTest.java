@@ -13,7 +13,6 @@ import qt.qr_backend.domain.Ceo;
 import qt.qr_backend.domain.Store;
 import qt.qr_backend.domain.enums.Approval;
 import qt.qr_backend.repository.CeoRepository;
-import qt.qr_backend.repository.StoreRepository;
 
 @SpringBootTest
 @Transactional
