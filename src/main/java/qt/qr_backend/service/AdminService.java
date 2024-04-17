@@ -32,26 +32,19 @@ public class AdminService {
     // 승인
     @Transactional
     public void approveJoin(String storeId) {
-        Store store = storeRepository.findById(storeId).orElse(null);
+        Store store = storeRepository.findById(storeId);
         if (store == null) {
             throw new RuntimeException("Store not found");
         }
 
         store.setApproval(Approval.APPROVE);
         storeRepository.save(store);
-
-        // 승인 이메일 발송
-        String to = store.getCeo().getEmail();
-        String subject = "회원가입 승인 안내";
-        String contact = "문의 전회번호: 000-0000-0000, 이메일: qrtabler@gmail.com";
-
-        emailService.sendApproveMail(to, subject, contact);
     }
 
     // 거부
     @Transactional
     public void rejectJoin(String storeId) {
-        Store store = storeRepository.findById(storeId).orElse(null);
+        Store store = storeRepository.findById(storeId);
         if (store == null) {
             throw new RuntimeException("Store not found");
         }
