@@ -32,8 +32,8 @@ public class ImageController {
 
     @GetMapping("/{date}/{filename}")
     @ResponseBody
-    public ResponseEntity<Object> getImage(@PathVariable String date, @PathVariable String name) {
-        String url = "images/"+date+"/"+name;
+    public ResponseEntity<Object> getImage(@PathVariable String date, @PathVariable String filename) {
+        String url = "images/"+date+"/"+filename;
         return makeImageResponse(url);
     }
 
