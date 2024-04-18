@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import qt.qr_backend.DTO.MenuDTO;
 import qt.qr_backend.DTO.MenuOptionDTO;
 import qt.qr_backend.DTO.OptionCategoryDTO;
+import qt.qr_backend.controller.response.CategoryAndOptionResponse;
 import qt.qr_backend.domain.Menu;
 import qt.qr_backend.domain.MenuOption;
 import qt.qr_backend.domain.OptionCategory;
@@ -91,6 +92,16 @@ public class MenuOptionService {
             }
             menuOptionRepository.save(targetMenuOption.get());
         }
+    }
+
+    public List<CategoryAndOptionResponse> findCategoryAndOptionByMenuId(String menuId) {
+        List<CategoryAndOptionResponse> list = new ArrayList<>();
+        List<OptionCategory> optionCategories = optionCategoryRepository.findByMenu_Id(menuId);
+        for (OptionCategory optionCategory : optionCategories) {
+            List<MenuOption> menuOptions = menuOptionRepository.findByOptionCategory_Id(optionCategory.getId());
+            list.add(new CategoryAndOptionResponse(optionCategory.getId(),menuId,optionCategory.getName(),optionCategory.isEssential(),optionCategory.isOnly(),MenuOptionDTO.listFromMenuOptionToMenuOptionDTO(menuOptions)));
+        }
+        return list;
     }
 
 

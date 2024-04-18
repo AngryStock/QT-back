@@ -1,16 +1,10 @@
 package qt.qr_backend.DTO;
 
 
-
-import jakarta.persistence.Column;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import qt.qr_backend.domain.Menu;
 import qt.qr_backend.domain.MenuOption;
 import qt.qr_backend.repository.OptionCategoryRepository;
 
@@ -25,6 +19,7 @@ public class MenuOptionDTO {
     private String optionCategoryId;
     private String name;
     private int price;
+    private boolean isSelected = false;
 
     public MenuOption toMenuOption(OptionCategoryRepository repository){
         return MenuOption.builder()
@@ -39,6 +34,7 @@ public class MenuOptionDTO {
                 .optionCategoryId(menuOption.getOptionCategory().getId())
                 .name(menuOption.getName())
                 .price(menuOption.getPrice())
+                .isSelected(false)
                 .build();
     }
     public static MenuOption fromMenuOptionDTOtoMenuOption(MenuOptionDTO menuOptionDTO,OptionCategoryRepository repository){
