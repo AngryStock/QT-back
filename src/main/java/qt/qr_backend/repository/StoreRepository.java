@@ -5,15 +5,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import qt.qr_backend.domain.Category;
 import qt.qr_backend.domain.Store;
-
 import java.util.List;
 import java.util.Optional;
 
 
 @Repository
 public interface StoreRepository extends JpaRepository<Store,String> {
-
-    Optional<Store> findById(String id);
 
     List<Store> findByCeo_Id(String ceoId);
 
