@@ -29,7 +29,7 @@ public class SignUpController {
         return new SignupResponse(200, "회원가입이 완료되었습니다.");
     }
 
-    @GetMapping("/available/ownerId")
+    @PostMapping("/available/ownerId")
     public String isAvailable(@RequestBody OwnerIdRequest ownerIdRequest) {
         String ownerId = ownerIdRequest.getOwnerId();
         return signupService.validateDuplicateLoginIdV2(ownerId);
