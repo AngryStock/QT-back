@@ -3,6 +3,7 @@ package qt.qr_backend.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import qt.qr_backend.DTO.OptionCategoryDTO;
 import qt.qr_backend.controller.request.MenuOptionRequest;
 import qt.qr_backend.controller.request.OptionCategoryRequest;
 import qt.qr_backend.controller.request.OptionRequest;
+import qt.qr_backend.controller.response.CategoryAndOptionResponse;
 import qt.qr_backend.controller.response.MenuImageUrlResponse;
 import qt.qr_backend.controller.response.MenuOptionImageUrlResponse;
 import qt.qr_backend.controller.response.MenuOptionResponse;
@@ -71,6 +73,11 @@ public class MenuOptionController {
     public MenuOptionResponse updateCategoryAndOptions(@RequestBody OptionRequest request){
         menuOptionService.updateOptionCategoryAndMenuOptions(request.getCategories(),request.getMenuOptions());
         return new MenuOptionResponse(200,"update ok");
+    }
+
+    @GetMapping("/find/menuId/CategoryAndOption/{menuId}")
+    public ResponseEntity<List<CategoryAndOptionResponse>> CategoryAndOptionFindByMenuId(@PathVariable String menuId){
+        return ResponseEntity.ok(menuOptionService.findCategoryAndOptionByMenuId(menuId));
     }
 
 //    @GetMapping("/findAll")
