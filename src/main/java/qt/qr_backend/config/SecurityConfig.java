@@ -89,7 +89,6 @@ public class SecurityConfig {
         //Form 로그인 방식 disable
         http
                 .formLogin(AbstractHttpConfigurer::disable);
-
         //http basic 인증 방식 disable
         http
                 .httpBasic(AbstractHttpConfigurer::disable);
