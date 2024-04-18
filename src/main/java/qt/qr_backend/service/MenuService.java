@@ -4,10 +4,12 @@ package qt.qr_backend.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import qt.qr_backend.DTO.MenuDTO;
+import qt.qr_backend.domain.Category;
 import qt.qr_backend.domain.Menu;
 import qt.qr_backend.repository.CategoryRepository;
 import qt.qr_backend.repository.MenuRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,6 +62,14 @@ public class MenuService {
     public List<MenuDTO> findMenuListByCategoryId(String id){
         List<Menu> findedMenuByCategoryId = menuRepository.findByCategory_Id(id);
         return MenuDTO.listFromMenutoMenuDTO(findedMenuByCategoryId);
+    }
+    public List<MenuDTO> findMenuListByStoreId(String storeId){
+        List<Category> categories = categoryRepository.findByStore_Id(storeId);
+        List<Menu> menus = new ArrayList<>();
+        for (Category category : categories) {
+            menus.addAll(menuRepository.findByCategory_Id(category.getId()));
+        }
+        return MenuDTO.listFromMenutoMenuDTO(menus);
     }
 
     public List<MenuDTO> findAllMenu(){
