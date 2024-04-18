@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @Builder
@@ -19,10 +21,12 @@ public class OrderMenuOption {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_menu_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private OrderMenu orderMenu;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_option_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private MenuOption menuOption;
 
 
