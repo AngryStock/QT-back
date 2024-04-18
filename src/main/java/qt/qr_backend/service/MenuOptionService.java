@@ -69,6 +69,29 @@ public class MenuOptionService {
         return MenuOptionDTO.listFromMenuOptionToMenuOptionDTO(findedMenuOptionByOptionCategoryId);
     }
 
+    public void updateOptionCategoryAndMenuOptions(List<OptionCategoryDTO> categories, List<MenuOptionDTO> menuOptions) {
+        for (OptionCategoryDTO optionCategoryDTO : categories) {
+            Optional<OptionCategory> targetOptionCategory = optionCategoryRepository.findById(optionCategoryDTO.getId());
+            if(targetOptionCategory.isPresent()){
+                if (optionCategoryDTO.isEssential()!=targetOptionCategory.get().isEssential()){
+                    targetOptionCategory.get().setEssential(optionCategoryDTO.isEssential());
+                }
+                if (optionCategoryDTO.isOnly()!=targetOptionCategory.get().isOnly()){
+                    targetOptionCategory.get().setOnly(optionCategoryDTO.isOnly());
+                }
+            }
+            optionCategoryRepository.save(targetOptionCategory.get());
+        }
+        for (MenuOptionDTO menuOptionDTO : menuOptions) {
+            Optional<MenuOption> targetMenuOption = menuOptionRepository.findById(menuOptionDTO.getId());
+            if (targetMenuOption.isPresent()) {
+                if (menuOptionDTO.getPrice() != 0) {
+                    targetMenuOption.get().setPrice(menuOptionDTO.getPrice());
+                }
+            }
+            menuOptionRepository.save(targetMenuOption.get());
+        }
+    }
 
 
 //    public List<MenuOptionDTO> findAllMenuOption(){

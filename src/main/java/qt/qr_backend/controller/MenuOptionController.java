@@ -12,6 +12,7 @@ import qt.qr_backend.DTO.MenuOptionDTO;
 import qt.qr_backend.DTO.OptionCategoryDTO;
 import qt.qr_backend.controller.request.MenuOptionRequest;
 import qt.qr_backend.controller.request.OptionCategoryRequest;
+import qt.qr_backend.controller.request.OptionRequest;
 import qt.qr_backend.controller.response.MenuImageUrlResponse;
 import qt.qr_backend.controller.response.MenuOptionImageUrlResponse;
 import qt.qr_backend.controller.response.MenuOptionResponse;
@@ -64,6 +65,12 @@ public class MenuOptionController {
         log.info("start findBymenuId menuOption");
         List<MenuOptionDTO> menuOptionListByMenuId = menuOptionService.findMenuOptionListByOptionCategoryId(optionCategoryId);
         return ResponseEntity.ok(menuOptionListByMenuId);
+    }
+
+    @PostMapping("/update/CategoryAndOptions")
+    public MenuOptionResponse updateCategoryAndOptions(@RequestBody OptionRequest request){
+        menuOptionService.updateOptionCategoryAndMenuOptions(request.getCategories(),request.getMenuOptions());
+        return new MenuOptionResponse(200,"update ok");
     }
 
 //    @GetMapping("/findAll")
