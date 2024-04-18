@@ -71,6 +71,12 @@ public class MenuController {
         List<MenuDTO> menuListByCategoryId = menuService.findMenuListByCategoryId(categoryId);
         return ResponseEntity.ok(menuListByCategoryId);
     }
+    @GetMapping("/find/storeId/{storeId}")
+    public ResponseEntity<List<MenuDTO>> menuFindByStoreId(@PathVariable String storeId){
+        log.info("start findByStoreId menu");
+        List<MenuDTO> menuListByStoreId = menuService.findMenuListByStoreId(storeId);
+        return ResponseEntity.ok(menuListByStoreId);
+    }
 
 //    @GetMapping("/findAll")
 //    public ResponseEntity<List<MenuDTO>> menuFindAll(){
