@@ -1,10 +1,6 @@
 package qt.qr_backend.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +36,12 @@ public class Ceo extends DateEntity{
     private String businessRegistrationFileUrl; // 사업자 등록증
     private String copyOfBankbookFileUrl; // 통장 사본
 
+    private LocalDateTime createAt; // 신청 일시
+    @PrePersist
+    public void prePersist() {
+        this.createAt = LocalDateTime.now(); // 신청일시 자동 설정
+    }
+
     public Ceo(String name, String mobileNumber, String loginId, String role, String bank,
                String accountNumber,
                String email, String businessReportCertificateFileUrl,
@@ -54,6 +56,7 @@ public class Ceo extends DateEntity{
         this.businessReportCertificateFileUrl = businessReportCertificateFileUrl;
         this.businessRegistrationFileUrl = businessRegistrationFileUrl;
         this.copyOfBankbookFileUrl = copyOfBankbookFileUrl;
+//        this.createAt = createAt;
     }
 
     public void encodePassword(PasswordEncoder passwordEncoder, String password) {

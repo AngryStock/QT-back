@@ -6,6 +6,8 @@ import qt.qr_backend.domain.Ceo;
 import qt.qr_backend.domain.Store;
 import qt.qr_backend.domain.enums.Approval;
 
+import java.time.LocalDateTime;
+
 @Getter @Setter
 public class AdminViewDTO {
 
@@ -32,6 +34,7 @@ public class AdminViewDTO {
     private String businessReportCertificateFileUrl; //사업자등록증
     private String businessRegistrationFileUrl; // 영업신고증
     private String copyOfBankbookFileUrl; // 통장사본
+    private LocalDateTime createAt; // 신청일시
 
     // 정적 팩토리 메서드
     public static AdminViewDTO from(Store store) {
@@ -45,6 +48,7 @@ public class AdminViewDTO {
         adminViewDTO.setMainAddress(store.getMainAddress());
         adminViewDTO.setDetailAddress(store.getDetailAddress());
         adminViewDTO.setApproval(store.getApproval());
+        adminViewDTO.setCreateAt(store.getCreatedAt());
 
         if (ceo != null) {
             adminViewDTO.setCeoId(ceo.getId());
