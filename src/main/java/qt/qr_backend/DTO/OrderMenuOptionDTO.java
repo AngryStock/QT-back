@@ -4,11 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import qt.qr_backend.domain.OrderMenuOption;
+import qt.qr_backend.domain.exOrder.OrderMenuOption;
 import qt.qr_backend.repository.MenuOptionRepository;
 import qt.qr_backend.repository.OrderMenuRepository;
-
-import java.util.List;
 
 
 @Data

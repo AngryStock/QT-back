@@ -3,8 +3,7 @@ package qt.qr_backend.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import qt.qr_backend.domain.Order;
-import qt.qr_backend.domain.OrderMenu;
+import qt.qr_backend.domain.exOrder.OrderMenu;
 
 import java.util.List;
 
