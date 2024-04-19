@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import qt.qr_backend.domain.Category;
 import qt.qr_backend.domain.Store;
+import qt.qr_backend.domain.enums.Approval;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -22,4 +24,7 @@ public interface StoreRepository extends JpaRepository<Store,String> {
     // 모든 Store 정보 조회 - AdminService
     @Query("select s from Store s")
     List<Store> findAll();
+
+    // Approval = BEFORE인 경우 조회 - AdminService
+    List<Store> findByApproval(Approval approval);
 }

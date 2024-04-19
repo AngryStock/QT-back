@@ -22,8 +22,15 @@ public class AdminService {
     }
 
     // 회원가입 신청 정보 조회
-    public List<AdminViewDTO> listAllJoinInfos() {
+    /*public List<AdminViewDTO> listAllJoinInfos() {
         List<Store> joinInfos = storeRepository.findAll();
+        return joinInfos.stream()
+                .map(store -> AdminViewDTO.from(store))
+                .collect(Collectors.toList());
+    }*/
+
+    public List<AdminViewDTO> listAllJoinInfos() {
+        List<Store> joinInfos = storeRepository.findByApproval(Approval.BEFORE);
         return joinInfos.stream()
                 .map(store -> AdminViewDTO.from(store))
                 .collect(Collectors.toList());
