@@ -38,16 +38,16 @@ public class CartController {
         log.info("start patchMenuTo Customer");
         if (Objects.equals(request.getType(), "add")){
             CartDTO cartDTO = cartService.saveCart(request.getCartDTO());
-            messagingTemplate.convertAndSend("/sub/cart/table/"+storeId+"/"+table,new CartRequest("add",cartDTO));
+            messagingTemplate.convertAndSend("/sub/cart/table/"+storeId+"/"+table,new CartResponse("add", cartDTO));
         } else if (Objects.equals(request.getType(), "set")) {
             CartDTO cartDTO = cartService.setCart(request.getCartId(), request.getAmount());
-            messagingTemplate.convertAndSend("/sub/cart/table/"+storeId+"/"+table,new CartRequest("set",request.getCartId(),cartDTO.getAmount()));
+            messagingTemplate.convertAndSend("/sub/cart/table/"+storeId+"/"+table,new CartResponse("set",request.getCartId(),cartDTO.getAmount()));
         } else if (Objects.equals(request.getType(), "del")){
             cartService.deleteCart(request.getCartId());
-            messagingTemplate.convertAndSend("/sub/cart/table/"+storeId+"/"+table,new CartRequest("del", request.getCartId()));
+            messagingTemplate.convertAndSend("/sub/cart/table/"+storeId+"/"+table,new CartResponse("del",request.getCartId()));
         } else if (Objects.equals(request.getType(), "allDel")){
             cartService.allDelCart(storeId,table);
-            messagingTemplate.convertAndSend("/sub/cart/table/"+storeId+"/"+table,new CartRequest("allDel"));
+            messagingTemplate.convertAndSend("/sub/cart/table/"+storeId+"/"+table,new CartResponse("allDel"));
         }
         else throw new RuntimeException("error in patchMenuToCustomer");
     }
@@ -60,7 +60,7 @@ public class CartController {
     public CartResponse cartDelete(@PathVariable String cartId){
         log.info("start delete cart");
         cartService.deleteCart(cartId);
-        return new CartResponse(200,"delete ok");
+        return new CartResponse(null,null,null,0,"delete ok",200);
     }
 
 
