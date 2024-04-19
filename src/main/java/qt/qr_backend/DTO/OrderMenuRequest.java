@@ -1,12 +1,9 @@
 package qt.qr_backend.DTO;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import qt.qr_backend.domain.OrderMenu;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -16,6 +13,7 @@ import java.util.List;
 public class OrderMenuRequest {
     private String menuId;
     private int orderMenuPrice;
+    private int amount;
     private List<OrderMenuOptionDTO> orderMenuOptionDTOList;
 
 }

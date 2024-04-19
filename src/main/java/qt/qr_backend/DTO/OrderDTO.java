@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import qt.qr_backend.domain.Order;
+import qt.qr_backend.domain.exOrder.Order;
 import qt.qr_backend.repository.StoreRepository;
 
 import java.time.LocalDateTime;

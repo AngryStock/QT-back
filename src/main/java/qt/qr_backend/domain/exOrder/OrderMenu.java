@@ -1,4 +1,4 @@
-package qt.qr_backend.domain;
+package qt.qr_backend.domain.exOrder;
 
 import jakarta.persistence.*;
 
@@ -8,9 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
-import java.util.ArrayList;
-import java.util.List;
+import qt.qr_backend.domain.Menu;
 
 @Entity
 @NoArgsConstructor

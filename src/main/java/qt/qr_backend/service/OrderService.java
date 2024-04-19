@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import qt.qr_backend.DTO.OrderDTO;
-import qt.qr_backend.domain.Order;
+import qt.qr_backend.domain.exOrder.Order;
 import qt.qr_backend.repository.OrderRepository;
 import qt.qr_backend.repository.StoreRepository;
 

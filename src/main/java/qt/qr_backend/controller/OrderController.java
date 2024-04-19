@@ -64,10 +64,7 @@ public class OrderController {
         //고객측 구독url
     }
 
-    @MessageMapping("/order/table/{tableId}")
-    public void patchMenuToCustomer(MessageDTO message, @DestinationVariable String tableId){
-        messagingTemplate.convertAndSend("/sub/order/table/"+tableId,message);
-    }
+
 
     @GetMapping("/order/delete/{orderId}")
     public OrderResponse orderDelete(@PathVariable String orderId){
