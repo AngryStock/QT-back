@@ -38,6 +38,7 @@ public class UserController {
         return ceo;
     }
 
+    //현재 로그인한 사업자의 가게 정보 반환
     @GetMapping("/currentStore")
     public List<Store> currentStore(HttpServletResponse response) {
         String loginId = SecurityContextHolder.getContext().getAuthentication().getName();
