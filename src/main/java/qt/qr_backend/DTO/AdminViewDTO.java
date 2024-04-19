@@ -47,6 +47,7 @@ public class AdminViewDTO {
         adminViewDTO.setPhoneNumber(store.getPhoneNumber());
         adminViewDTO.setMainAddress(store.getMainAddress());
         adminViewDTO.setDetailAddress(store.getDetailAddress());
+        adminViewDTO.setBusinessNumber(store.getBusinessNumber());
         adminViewDTO.setApproval(store.getApproval());
         adminViewDTO.setCreateAt(store.getCreatedAt());
 
