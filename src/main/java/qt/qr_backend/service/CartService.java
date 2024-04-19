@@ -59,4 +59,8 @@ public class CartService {
         }
         else throw new RuntimeException("cant find cart");
     }
+    public void allDelCart(String storeId, String table){
+        List<Cart> targetList = cartRepository.findByTableNoAndStoreId(storeId, table);
+        cartRepository.deleteAll(targetList);
+    }
 }

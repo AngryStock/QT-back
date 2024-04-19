@@ -38,11 +38,18 @@ public class CartController {
         log.info("start patchMenuTo Customer");
         if (Objects.equals(request.getType(), "add")){
             CartDTO cartDTO = cartService.saveCart(request.getCartDTO());
-            messagingTemplate.convertAndSend("/sub/cart/table/"+storeId+"/"+table,cartDTO);
+            messagingTemplate.convertAndSend("/sub/cart/table/"+storeId+"/"+table,new CartRequest("add",cartDTO));
         } else if (Objects.equals(request.getType(), "set")) {
             CartDTO cartDTO = cartService.setCart(request.getCartId(), request.getAmount());
-            messagingTemplate.convertAndSend("/sub/cart/table/"+storeId+"/"+table,cartDTO);
-        }else throw new RuntimeException("error in patchMenuToCustomer");
+            messagingTemplate.convertAndSend("/sub/cart/table/"+storeId+"/"+table,new CartRequest("set",request.getCartId(),cartDTO.getAmount()));
+        } else if (Objects.equals(request.getType(), "del")){
+            cartService.deleteCart(request.getCartId());
+            messagingTemplate.convertAndSend("/sub/cart/table/"+storeId+"/"+table,new CartRequest("del", request.getCartId()));
+        } else if (Objects.equals(request.getType(), "allDel")){
+            cartService.allDelCart(storeId,table);
+            messagingTemplate.convertAndSend("/sub/cart/table/"+storeId+"/"+table,new CartRequest("allDel"));
+        }
+        else throw new RuntimeException("error in patchMenuToCustomer");
     }
 
 //    @PostMapping("/update")
@@ -55,6 +62,7 @@ public class CartController {
         cartService.deleteCart(cartId);
         return new CartResponse(200,"delete ok");
     }
+
 
     @GetMapping("/cart/find/cartId/{cartId}")
     public ResponseEntity<CartDTO> cartFindById(@PathVariable String cartId){
