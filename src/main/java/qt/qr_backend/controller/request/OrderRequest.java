@@ -14,6 +14,5 @@ public class OrderRequest {
     private String table;
     private int price;
     private List<OrderMenuDTO> menus;
-    private String date;
     private String storeId;
 }
