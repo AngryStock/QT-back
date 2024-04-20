@@ -15,4 +15,5 @@ public class OrderRequest {
     private int price;
     private List<OrderMenuDTO> menus;
     private String storeId;
+    private String status;
 }

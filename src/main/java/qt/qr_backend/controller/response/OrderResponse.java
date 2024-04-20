@@ -39,4 +39,14 @@ public class OrderResponse {
         this.statusCode = i;
         this.message = deleteOk;
     }
+
+    public OrderResponse(String order, String id, String storeId, LocalDateTime orderDate, String status, int price, String tableId) {
+        this.type = order;
+        this.orderId = id;
+        this.storeId = storeId;
+        this.orderDate = orderDate;
+        this.status = status;
+        this.price = price;
+        this.table = tableId;
+    }
 }
