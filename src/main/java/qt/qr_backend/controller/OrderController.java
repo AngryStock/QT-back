@@ -70,9 +70,10 @@ public class OrderController {
 //    }
 
     @MessageMapping("/order/storeMessage")//사장이 고객에게 주문 상태 보내기/pub/order/orderOXmessage
-    public void orderOXMessageToCustomer(PostOrderRequest request){
+    public void orderOXMessageToCustomer(OrderRequest request){
         OrderDTO orderDTO = orderService.changeOrderStatus(request.getOrderId(), request.getStatus());
-        messagingTemplate.convertAndSend("/sub/order/table/"+request.getTableId(),orderDTO);
+        messagingTemplate.convertAndSend("/sub/cart/table/"+orderDTO.getStoreId()+"/"+orderDTO.getTableId(),
+                new OrderResponse("order", orderDTO.getId(),orderDTO.getStoreId(),orderDTO.getOrderDate(),orderDTO.getStatus(),orderDTO.getPrice(),orderDTO.getTableId()));
         //고객측 구독url
     }
 

@@ -25,10 +25,6 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderMenuRepository orderMenuRepository;
 
-    public OrderDTO saveOrder(OrderDTO orderDTO){
-        Order order = orderRepository.save(orderDTO.toOrder());
-        return OrderDTO.fromOrdertoOrderDTO(order);
-    }
 
     public OrderDTO updateOrder(OrderDTO orderDTO){
         Optional<Order> targetOrder = orderRepository.findById(orderDTO.getId());

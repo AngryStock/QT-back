@@ -63,6 +63,10 @@
       }
     ]
   }
+  var testJson = {
+    "orderId":"a79674b8-744c-41db-9d13-9a0062a4799e",
+    "status":"ACCEPT",
+  }
   var json = {}
   // vue.js
   var vm = new Vue({
@@ -74,7 +78,7 @@
       sendMessage: function() {
         console.log("this is sendMessage json",json);
         ws.send("/pub/order/storeMessage", {},
-                JSON.stringify(orderAcceptJson));
+                JSON.stringify(testJson));
       },
       recvMessage: function(recv) {
         console.log(recv)
