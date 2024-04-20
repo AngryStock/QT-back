@@ -2,17 +2,17 @@ package qt.qr_backend.domain.exOrder;
 
 import jakarta.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import qt.qr_backend.domain.Store;
+import qt.qr_backend.domain.converter.StringListConverter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import javax.annotation.processing.Generated;
 
+@Setter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,45 +20,11 @@ import javax.annotation.processing.Generated;
 @Builder
 @Table(name = "orders")
 public class Order {
-    @Id
-    @Column(name = "order_id")
+    @Id @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Store store;
-
+    private String storeId;
     private LocalDateTime orderDate;
-
-    @Column(name = "order_status")
     private String status;
-
-    private String tableId;
-
-    private int orderPrice;
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setStore(Store store) {
-        this.store = store;
-    }
-
-    public void setOrderDate(LocalDateTime orderDate) {
-        this.orderDate = orderDate;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void setOrderPrice(int orderPrice) {
-        this.orderPrice = orderPrice;
-    }
-
-    public void setTableId(String tableId) {
-        this.tableId = tableId;
-    }
+    private String tableNo;
+    private int price;
 }

@@ -11,8 +11,8 @@ import java.util.List;
 @Repository
 
 public interface OrderRepository extends JpaRepository<Order,String> {
-    List<Order> findByStore_Id(String storeId);
+    List<Order> findByStoreId(String storeId);
 
-    @Query("select o from Order o join fetch o.store s join fetch s.ceo c where o.id= :orderId")
-    Order findNoProxyOrderById(String orderId);
+//    @Query("select o from Order o join fetch o.store s join fetch s.ceo c where o.id= :orderId")
+//    Order findNoProxyOrderById(String orderId);
 }

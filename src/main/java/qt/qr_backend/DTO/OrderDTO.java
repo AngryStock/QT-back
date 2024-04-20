@@ -21,39 +21,47 @@ public class OrderDTO {
     private String storeId;
     private LocalDateTime orderDate;
     private String status;
-    private int orderPrice;
+    private int price;
     private String tableId;
 
+    public OrderDTO(String storeId, LocalDateTime date, String wait, int price, String tableId) {
+        this.storeId = storeId;
+        this.orderDate = date;
+        this.status = wait;
+        this.price = price;
+        this.tableId = tableId;
+    }
 
-    public Order toOrder(StoreRepository repository){
+
+    public Order toOrder(){
         return Order.builder()
-                .store(repository.getReferenceById(storeId))
+                .storeId(storeId)
                 .orderDate(orderDate)
                 .status(status)
-                .orderPrice(orderPrice)
-                .tableId(tableId)
+                .price(price)
+                .tableNo(tableId)
                 .build();
     }
 
-//    public static Order fromOrderDTOtoOrder(OrderDTO orderDTO){
-//        return Order.builder()
-//                .id(orderDTO.id)
-//                .store(StoreDTO.fromStoreDTOtoStore(orderDTO.store))
-//                .orderDate(orderDTO.orderDate)
-//                .status(orderDTO.status)
-//                .orderPrice(orderDTO.orderPrice)
-//                .tableId(orderDTO.tableId)
-//                .build();
-//    }
+    public static Order fromOrderDTOtoOrder(OrderDTO orderDTO){
+        return Order.builder()
+                .id(orderDTO.id)
+                .storeId(orderDTO.getStoreId())
+                .orderDate(orderDTO.orderDate)
+                .status(orderDTO.status)
+                .price(orderDTO.price)
+                .tableNo(orderDTO.tableId)
+                .build();
+    }
 
     public static OrderDTO fromOrdertoOrderDTO(Order order){
         return OrderDTO.builder()
                 .id(order.getId())
-                .storeId(order.getStore().getId())
+                .storeId(order.getStoreId())
                 .orderDate(order.getOrderDate())
                 .status(order.getStatus())
-                .orderPrice(order.getOrderPrice())
-                .tableId(order.getTableId())
+                .price(order.getPrice())
+                .tableId(order.getTableNo())
                 .build();
     }
     public static List<OrderDTO> listFromOrdertoOrderDTO(List<Order> list){

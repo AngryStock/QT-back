@@ -50,17 +50,24 @@
     var ws = Stomp.over(sock);
     var reconnect = 0;
     var json =
-        {"type":"add",
-            "cartDTO":{
-                "tableNo": "1",
-                "storeId": "9d85fa11-e525-4da2-836c-b6e612ebe436",
-                "menuId": "string",
-                "name": "string",
-                "img": "string",
-                "options": ["aaa", "vvv", "asdasd"],
-                "price": 2222,
-                "amount": 1
-            }
+        {
+            "table":"1",
+            "price":5000,
+            "storeId":"9d85fa11-e525-4da2-836c-b6e612ebe436",
+            "menus":[
+                {
+                    "name":"ddd",
+                    "options":["asd","asd","sdsdsd"],
+                    "amount":22
+                },
+                {
+                    "name":"ddd",
+                    "options":["asd","asd","sdsdsd"],
+                    "amount":22
+                }
+            ],
+            "status":"wait",
+            "date":"2021-11-05 13:47:13"
         }
     var testJson = {
         "test":"test message for order info exchange"

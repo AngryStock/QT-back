@@ -24,17 +24,6 @@ public class CartService {
         Cart cart = cartRepository.save(cartDTO.toCart());
         return CartDTO.fromCarttoCartDTO(cart);
     }
-//    public CartDTO updateCart(CartDTO cartDTO){
-//        Optional<Cart> targetCart = cartRepository.findById(cartDTO.getId());
-//        if (targetCart.isPresent()){
-//            if (cartDTO.getName()!=null){
-//                targetCart.get().setName(cartDTO.getName());
-//            }
-//        }
-//        Cart savedCart = cartRepository.save(targetCart.get());
-//        return CartDTO.fromCarttoCartDTO(savedCart);
-//    }
-
 
     public void deleteCart(String id){
         cartRepository.deleteById(id);
@@ -60,7 +49,7 @@ public class CartService {
         else throw new RuntimeException("cant find cart");
     }
     public void allDelCart(String storeId, String table){
-        List<Cart> targetList = cartRepository.findByTableNoAndStoreId(storeId, table);
+        List<Cart> targetList = cartRepository.findByTableNoAndStoreId(table, storeId);
         cartRepository.deleteAll(targetList);
     }
 }
