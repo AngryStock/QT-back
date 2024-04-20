@@ -14,5 +14,5 @@ public class PostOrderRequest {
     private String status;
     private String orderId;
     private String tableId;
-    private List<OrderMenuDTO> orderMenuDTOList;
+    //private List<OrderMenuDTO> orderMenuDTOList;
 }

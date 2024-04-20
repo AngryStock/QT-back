@@ -7,6 +7,8 @@ import qt.qr_backend.domain.Store;
 import qt.qr_backend.domain.enums.Approval;
 import qt.qr_backend.repository.StoreRepository;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,6 +47,7 @@ public class AdminService {
         }
 
         store.setApproval(Approval.APPROVE);
+        store.setApprovalAt(LocalDateTime.now());
         storeRepository.save(store);
 
         // 승인 이메일 발송
