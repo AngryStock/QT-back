@@ -41,15 +41,14 @@ public class OrderController {
     @MessageMapping("/order/message")
     public void orderSave(@RequestBody OrderRequest request){
         log.info("start save order");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime dateTime = LocalDateTime.parse(request.getDate(),formatter);
-        OrderDTO orderDTO = new OrderDTO(request.getStoreId(), dateTime, "WAIT", request.getPrice(), request.getTable());
+        LocalDateTime now = LocalDateTime.now();
+        OrderDTO orderDTO = new OrderDTO(request.getStoreId(), now, "WAIT", request.getPrice(), request.getTable());
         List<OrderMenuDTO> menus = request.getMenus();
         List<OrderMenuDTO> orderMenuDTOS = orderService.saveOrderAndOrderMenu(orderDTO, menus);
         log.info(orderMenuDTOS.toString());
 
         messagingTemplate.convertAndSend("/sub/order/getOrder/storeId/"+request.getStoreId(),new OrderResponse("order", orderMenuDTOS.get(0).getOrderId(), request.getStoreId(),
-                dateTime,"WAIT",request.getPrice(),
+                now,"WAIT",request.getPrice(),
                 request.getTable(), orderMenuDTOS));
     }
     @PostMapping("/order/update")
