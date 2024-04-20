@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import qt.qr_backend.DTO.OrderDTO;
 import qt.qr_backend.DTO.OrderMenuDTO;
+import qt.qr_backend.controller.response.OrderResponse;
 import qt.qr_backend.domain.exOrder.Order;
 import qt.qr_backend.domain.exOrder.OrderMenu;
 import qt.qr_backend.repository.OrderMenuRepository;
@@ -67,9 +68,13 @@ public class OrderService {
         }
         return OrderDTO.fromOrdertoOrderDTO(order);
     }
-    public List<OrderDTO> findOrderListByStoreId(String id){
+    public List<OrderResponse> findOrderListByStoreId(String id){
+        List<OrderResponse> list = new ArrayList<>();
         List<Order> findedOrderByStoreId = orderRepository.findByStoreId(id);
-        return OrderDTO.listFromOrdertoOrderDTO(findedOrderByStoreId);
+        for (Order order : findedOrderByStoreId) {
+            list.add(new OrderResponse("order", order.getId(), order.getStoreId(),order.getOrderDate(),order.getStatus(),order.getPrice(),order.getTableNo(),OrderMenuDTO.listFromOrderMenutoOrderMenuDTO(orderMenuRepository.findByOrder_Id(order.getId()))));
+        }
+        return list;
     }
     public List<OrderDTO> findAllOrder(){
         List<Order> findAllOrder = orderRepository.findAll();
@@ -77,11 +82,8 @@ public class OrderService {
     }
 
     public List<OrderMenuDTO> saveOrderAndOrderMenu(OrderDTO orderDTO, List<OrderMenuDTO> menus) {
-        log.info(orderDTO.toString(), menus);
         Order savedOrder = orderRepository.save(orderDTO.toOrder());
-        log.info(savedOrder.toString());
         List<OrderMenu> list = menus.stream().map(l -> new OrderMenu(l.getName(), l.getOptions(), l.getAmount(), savedOrder)).toList();
-        log.info(list.toString());
         List<OrderMenu> savedOrderMenus = orderMenuRepository.saveAll(list);
         return OrderMenuDTO.listFromOrderMenutoOrderMenuDTO(savedOrderMenus);
 

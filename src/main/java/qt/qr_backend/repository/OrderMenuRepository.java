@@ -13,6 +13,7 @@ import java.util.List;
 public interface OrderMenuRepository extends JpaRepository<OrderMenu,String> {
 
 
+    List<OrderMenu> findByOrder_Id(String orderId);
 //    @Query("select om from OrderMenu om join fetch om.menu m join fetch om.order o where om.id= :orderMenuId")
 //    OrderMenu findNoProxyOrderMenuById(String orderMenuId);
 

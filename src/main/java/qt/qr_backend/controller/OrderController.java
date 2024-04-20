@@ -92,9 +92,9 @@ public class OrderController {
         return ResponseEntity.ok(orderDTO);
     }
     @GetMapping("/order/find/storeId/{storeId}")
-    public ResponseEntity<List<OrderDTO>> orderFindByStoreId(@PathVariable String storeId){
+    public ResponseEntity<List<OrderResponse>> orderFindByStoreId(@PathVariable String storeId){
         log.info("start findById order");
-        List<OrderDTO> orderListByStoreId = orderService.findOrderListByStoreId(storeId);
+        List<OrderResponse> orderListByStoreId = orderService.findOrderListByStoreId(storeId);
         return ResponseEntity.ok(orderListByStoreId);
     }
 
