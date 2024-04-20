@@ -21,15 +21,15 @@ public class OrderMenuController {
 
     private final OrderMenuService orderMenuService;
 
-    @PostMapping("/save")
-    public ResponseEntity<OrderMenuDTO> orderMenuSave(@RequestBody OrderMenuDTO orderMenuDTO){
-        log.info("start save orderMenu");
-        return ResponseEntity.ok(orderMenuService.saveOrderMenu(orderMenuDTO));
-    }
-    @PostMapping("/update")
-    public ResponseEntity<OrderMenuDTO> orderMenuUpdate(@RequestBody OrderMenuDTO orderMenuDTO){
-        return ResponseEntity.ok(orderMenuService.updateOrderMenu(orderMenuDTO));
-    }
+//    @PostMapping("/save")
+//    public ResponseEntity<OrderMenuDTO> orderMenuSave(@RequestBody OrderMenuDTO orderMenuDTO){
+//        log.info("start save orderMenu");
+//        return ResponseEntity.ok(orderMenuService.saveOrderMenu(orderMenuDTO));
+//    }
+//    @PostMapping("/update")
+//    public ResponseEntity<OrderMenuDTO> orderMenuUpdate(@RequestBody OrderMenuDTO orderMenuDTO){
+//        return ResponseEntity.ok(orderMenuService.updateOrderMenu(orderMenuDTO));
+//    }
     @GetMapping("/delete/{orderMenuId}")
     public OrderMenuResponse orderMenuDelete(@PathVariable String orderMenuId){
         log.info("start delete orderMenu");
@@ -37,24 +37,24 @@ public class OrderMenuController {
         return new OrderMenuResponse(200,"delete ok");
     }
 
-    @GetMapping("/find/orderMenuId/{orderMenuId}")
-    public ResponseEntity<OrderMenuDTO> orderMenuFindById(@PathVariable String orderMenuId){
-        log.info("start findById orderMenu");
-        OrderMenuDTO orderMenuDTO = orderMenuService.findOrderMenuById(orderMenuId);
-        return ResponseEntity.ok(orderMenuDTO);
-    }
-    @GetMapping("/find/menuId/{menuId}")
-    public ResponseEntity<List<OrderMenuDTO>> orderMenuFindByMenuId(@PathVariable String menuId){
-        log.info("start findById orderMenu");
-        List<OrderMenuDTO> orderMenuListByMenuId = orderMenuService.findOrderMenuListByMenuId(menuId);
-        return ResponseEntity.ok(orderMenuListByMenuId);
-    }
-    @GetMapping("/find/orderId/{orderId}")
-    public ResponseEntity<List<OrderMenuDTO>> orderMenuFindByOrderId(@PathVariable String orderId){
-        log.info("start findById orderMenu");
-        List<OrderMenuDTO> orderMenuListByOrderId = orderMenuService.findOrderMenuListByOrderId(orderId);
-        return ResponseEntity.ok(orderMenuListByOrderId);
-    }
+//    @GetMapping("/find/orderMenuId/{orderMenuId}")
+//    public ResponseEntity<OrderMenuDTO> orderMenuFindById(@PathVariable String orderMenuId){
+//        log.info("start findById orderMenu");
+//        OrderMenuDTO orderMenuDTO = orderMenuService.findOrderMenuById(orderMenuId);
+//        return ResponseEntity.ok(orderMenuDTO);
+//    }
+//    @GetMapping("/find/menuId/{menuId}")
+//    public ResponseEntity<List<OrderMenuDTO>> orderMenuFindByMenuId(@PathVariable String menuId){
+//        log.info("start findById orderMenu");
+//        List<OrderMenuDTO> orderMenuListByMenuId = orderMenuService.findOrderMenuListByMenuId(menuId);
+//        return ResponseEntity.ok(orderMenuListByMenuId);
+//    }
+//    @GetMapping("/find/orderId/{orderId}")
+//    public ResponseEntity<List<OrderMenuDTO>> orderMenuFindByOrderId(@PathVariable String orderId){
+//        log.info("start findById orderMenu");
+//        List<OrderMenuDTO> orderMenuListByOrderId = orderMenuService.findOrderMenuListByOrderId(orderId);
+//        return ResponseEntity.ok(orderMenuListByOrderId);
+//    }
 
     @GetMapping("/findAll")
     public ResponseEntity<List<OrderMenuDTO>> orderMenuFindAll(){

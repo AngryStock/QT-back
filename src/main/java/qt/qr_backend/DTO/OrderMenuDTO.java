@@ -18,26 +18,18 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderMenuDTO {
     private String id;
+    private String name;
+    private List<String> options;
+    private int amount;
     private String orderId;
-    private String menuId;
-    private int orderMenuPrice;
 
-    public OrderMenuDTO(String orderId,String menuId, int orderMenuPrice) {
-        this.orderId = orderId;
-        this.menuId = menuId;
-        this.orderMenuPrice = orderMenuPrice;
-    }
 
-    public OrderMenuDTO setOrderDTOMap(OrderDTO order,OrderMenuDTO orderMenuDTO) {
-        orderMenuDTO.setOrderId(order.getId());
-        return orderMenuDTO;
-    }
-
-    public OrderMenu toOrderMenu(OrderRepository orderRepository, MenuRepository menuRepository){
+    public OrderMenu toOrderMenu(){
         return OrderMenu.builder()
-                .order(orderRepository.getReferenceById(orderId))
-                .menu(menuRepository.getReferenceById(menuId))
-                .orderMenuPrice(orderMenuPrice)
+                .name(name)
+                .options(options)
+                .amount(amount)
+                .order(null)
                 .build();
     }
 
@@ -53,9 +45,10 @@ public class OrderMenuDTO {
     public static OrderMenuDTO fromOrderMenutoOrderMenuDTO(OrderMenu orderMenu){
         return OrderMenuDTO.builder()
                 .id(orderMenu.getId())
+                .name(orderMenu.getName())
+                .options(orderMenu.getOptions())
+                .amount(orderMenu.getAmount())
                 .orderId(orderMenu.getOrder().getId())
-                .menuId(orderMenu.getMenu().getId())
-                .orderMenuPrice(orderMenu.getOrderMenuPrice())
                 .build();
     }
     public static List<OrderMenuDTO> listFromOrderMenutoOrderMenuDTO(List<OrderMenu> list){

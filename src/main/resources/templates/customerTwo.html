@@ -50,16 +50,7 @@
     var ws = Stomp.over(sock);
     var reconnect = 0;
     var json =
-        {"type":"add",
-            "cartDTO":{
-                "table": "string",
-                "storeId": "9d85fa11-e525-4da2-836c-b6e612ebe436",
-                "menuId": "string",
-                "name": "string",
-                "img": "string",
-                "options": ["aaa", "vvv", "asdasd"],
-                "price": 2222,
-                "amount": 1}
+        {"type":"allDel"
         }
     var testJson = {
         "test":"test message for order info exchange"

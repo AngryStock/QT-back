@@ -28,12 +28,12 @@ public class OrderMenuOptionDTO {
     }
 
 
-    public OrderMenuOption toOrderMenuOption(OrderMenuRepository orderMenuRepository, MenuOptionRepository menuOptionRepository){
-        return OrderMenuOption.builder()
-                .orderMenu(orderMenuRepository.getReferenceById(orderMenuId))
-                .menuOption(menuOptionRepository.getReferenceById(menuOptionId))
-                .build();
-    }
+//    public OrderMenuOption toOrderMenuOption(OrderMenuRepository orderMenuRepository, MenuOptionRepository menuOptionRepository){
+//        return OrderMenuOption.builder()
+//                .orderMenu(orderMenuRepository.getReferenceById(orderMenuId))
+//                .menuOption(menuOptionRepository.getReferenceById(menuOptionId))
+//                .build();
+//    }
 
 //    public static OrderMenuOption fromOrderMenuOptionDTOtoOrderMenuOption(OrderMenuOptionDTO orderMenuOptionDTO){
 //        return OrderMenuOption.builder()

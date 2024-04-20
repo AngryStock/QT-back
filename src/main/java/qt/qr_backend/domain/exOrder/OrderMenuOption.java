@@ -20,28 +20,19 @@ public class OrderMenuOption {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_menu_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private OrderMenu orderMenu;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "order_menu_id")
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+//    private OrderMenu orderMenu;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "menu_option_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private MenuOption menuOption;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "menu_option_id")
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+//    private MenuOption menuOption;
 
 
     public void setId(String id) {
         this.id = id;
     }
-
-    public void setOrderMenu(OrderMenu orderMenu) {
-        this.orderMenu = orderMenu;
-    }
-
-    public void setMenuOption(MenuOption menuOption) {
-        this.menuOption = menuOption;
-    }
-
 
 }

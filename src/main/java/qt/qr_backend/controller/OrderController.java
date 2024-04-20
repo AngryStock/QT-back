@@ -15,12 +15,16 @@ import qt.qr_backend.DTO.OrderDTO;
 import qt.qr_backend.DTO.OrderMenuDTO;
 import qt.qr_backend.DTO.OrderMenuRequest;
 import qt.qr_backend.controller.request.GetOrderRequest;
+import qt.qr_backend.controller.request.OrderRequest;
 import qt.qr_backend.controller.request.PostOrderRequest;
 import qt.qr_backend.controller.response.OrderResponse;
+import qt.qr_backend.domain.converter.StringListConverter;
 import qt.qr_backend.service.OrderMenuService;
 import qt.qr_backend.service.OrderService;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -34,28 +38,37 @@ public class OrderController {
     private final OrderMenuService orderMenuService;
     private final SimpMessageSendingOperations messagingTemplate;
 
-    @PostMapping("/order/save")
-    public ResponseEntity<OrderDTO> orderSave(@RequestBody OrderDTO orderDTO){
+    @MessageMapping("/order/message")
+    public void orderSave(@RequestBody OrderRequest request){
         log.info("start save order");
-        return ResponseEntity.ok(orderService.saveOrder(orderDTO));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime dateTime = LocalDateTime.parse(request.getDate(),formatter);
+        OrderDTO orderDTO = new OrderDTO(request.getStoreId(), dateTime, "WAIT", request.getPrice(), request.getTable());
+        List<OrderMenuDTO> menus = request.getMenus();
+        List<OrderMenuDTO> orderMenuDTOS = orderService.saveOrderAndOrderMenu(orderDTO, menus);
+        log.info(orderMenuDTOS.toString());
+
+        messagingTemplate.convertAndSend("/sub/order/getOrder/storeId/"+request.getStoreId(),new OrderResponse("order", orderMenuDTOS.get(0).getOrderId(), request.getStoreId(),
+                dateTime,"WAIT",request.getPrice(),
+                request.getTable(), orderMenuDTOS));
     }
     @PostMapping("/order/update")
     public ResponseEntity<OrderDTO> orderUpdate(@RequestBody OrderDTO orderDTO){
         return ResponseEntity.ok(orderService.updateOrder(orderDTO));
     }
 
-    @MessageMapping("/order/message")//고객이 사장에게 주문 정보 보내기/pub/order/message/ceo
-    //이때 고객쪽에서 orderId를 보내주면 이걸 기반으로 Order를 만들어주자
-    public void getOrderFromCustomer(GetOrderRequest getOrderRequest){
-        //orderPrice는 orderMenuPrice 받아오던가 여기서 계산해주던가
-        List<OrderMenuDTO> orderMenuDTOList = orderMenuService.saveAllOrderMenu(
-                getOrderRequest.getList(),
-                getOrderRequest.getTableId(),
-                getOrderRequest.getOrderId(),
-                getOrderRequest.getStoreId());
-        messagingTemplate.convertAndSend("/sub/order/getOrder/storeId/"+getOrderRequest.getStoreId(),orderMenuDTOList);
-        //사장측 구독 url
-    }
+//    @MessageMapping("/order/message")//고객이 사장에게 주문 정보 보내기/pub/order/message/ceo
+//    //이때 고객쪽에서 orderId를 보내주면 이걸 기반으로 Order를 만들어주자
+//    public void getOrderFromCustomer(GetOrderRequest getOrderRequest){
+//        //orderPrice는 orderMenuPrice 받아오던가 여기서 계산해주던가
+//        List<OrderMenuDTO> orderMenuDTOList = orderMenuService.saveAllOrderMenu(
+//                getOrderRequest.getList(),
+//                getOrderRequest.getTableId(),
+//                getOrderRequest.getOrderId(),
+//                getOrderRequest.getStoreId());
+//        messagingTemplate.convertAndSend("/sub/order/getOrder/storeId/"+getOrderRequest.getStoreId(),orderMenuDTOList);
+//        //사장측 구독 url
+//    }
 
     @MessageMapping("/order/storeMessage")//사장이 고객에게 주문 상태 보내기/pub/order/orderOXmessage
     public void orderOXMessageToCustomer(PostOrderRequest request){
@@ -92,8 +105,4 @@ public class OrderController {
         List<OrderDTO> allOrderDTO = orderService.findAllOrder();
         return ResponseEntity.ok(allOrderDTO);
     }
-
-
-
-
 }
